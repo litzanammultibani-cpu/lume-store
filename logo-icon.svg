@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="#0a0a0a">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&amp;display=swap');
+    </style>
+  </defs>
+  <!-- Stylized L -->
+  <text x="32" y="40" text-anchor="middle"
+        font-family="'Cormorant Garamond', 'Georgia', 'Times New Roman', serif"
+        font-weight="400"
+        font-size="42"
+        fill="#0a0a0a">L</text>
+  <!-- Water ripple lines (River Lethe reference) -->
+  <path d="M16 50 Q22 47, 28 50 Q34 53, 40 50 Q46 47, 52 50"
+        fill="none" stroke="#0a0a0a" stroke-width="0.8" stroke-linecap="round"/>
+  <path d="M20 54 Q25 51.5, 30 54 Q35 56.5, 40 54 Q45 51.5, 48 54"
+        fill="none" stroke="#0a0a0a" stroke-width="0.5" stroke-linecap="round" opacity="0.5"/>
+</svg>

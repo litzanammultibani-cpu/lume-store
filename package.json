@@ -1,0 +1,25 @@
+{
+  "name": "lethe-store",
+  "version": "1.0.0",
+  "description": "LETHE - Fine sterling silver jewelry. The art of timelessness.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -s . -l 8080",
+    "dev": "npx serve -s . -l 3000 --cors",
+    "preview": "python -m http.server 8080"
+  },
+  "keywords": [
+    "jewelry",
+    "silver",
+    "ecommerce",
+    "lethe",
+    "static-site"
+  ],
+  "author": "litza",
+  "license": "MIT",
+  "homepage": "https://github.com/litza/lethe-store#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/litza/lethe-store.git"
+  }
+}

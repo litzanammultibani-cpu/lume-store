@@ -1,0 +1,551 @@
+/* ============ RESET & BASE ============ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #1a1a1a;
+    background: #fafaf7;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ============ ANNOUNCEMENT BAR ============ */
+.announcement {
+    background: #0a0a0a;
+    color: #fafaf7;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    font-weight: 400;
+}
+
+/* ============ NAVIGATION ============ */
+.navbar {
+    background: #fafaf7;
+    border-bottom: 1px solid #e8e8e8;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 22px 40px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    gap: 32px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    font-weight: 400;
+}
+
+.nav-right {
+    justify-content: flex-end;
+}
+
+.nav-left a, .nav-right a {
+    transition: opacity 0.3s;
+}
+
+.nav-left a:hover, .nav-right a:hover {
+    opacity: 0.5;
+}
+
+.nav-logo a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+}
+
+/* ============ HERO ============ */
+.hero {
+    min-height: 85vh;
+    background: linear-gradient(135deg, #f5f2ec 0%, #e8e4db 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.4), transparent 60%);
+    pointer-events: none;
+}
+
+.hero-content {
+    max-width: 800px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-tagline {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    margin-bottom: 32px;
+    color: #4a4a4a;
+}
+
+.hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 7vw, 88px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+}
+
+.hero-subtitle {
+    font-size: 16px;
+    font-weight: 300;
+    color: #4a4a4a;
+    margin-bottom: 48px;
+    letter-spacing: 0.02em;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: #0a0a0a;
+    color: #fafaf7;
+    padding: 18px 48px;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    font-weight: 400;
+    transition: all 0.4s ease;
+    border: 1px solid #0a0a0a;
+}
+
+.btn-primary:hover {
+    background: transparent;
+    color: #0a0a0a;
+}
+
+/* ============ SECTION TITLE ============ */
+.section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 64px;
+    letter-spacing: 0.02em;
+}
+
+/* ============ COLLECTIONS ============ */
+.collections {
+    padding: 120px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.collections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+}
+
+.collection-card {
+    cursor: pointer;
+    transition: transform 0.4s ease;
+}
+
+.collection-card:hover {
+    transform: translateY(-8px);
+}
+
+.collection-image {
+    aspect-ratio: 3/4;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.collection-placeholder {
+    font-size: 80px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 100;
+}
+
+.collection-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+}
+
+.collection-card p {
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 0.05em;
+}
+
+/* ============ SHOP / PRODUCTS ============ */
+.shop {
+    padding: 120px 40px;
+    background: #ffffff;
+}
+
+.products-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 40px 24px;
+}
+
+.product-card {
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.02);
+}
+
+.product-image {
+    aspect-ratio: 1;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease;
+}
+
+.product-placeholder {
+    font-size: 72px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 200;
+}
+
+.product-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: #0a0a0a;
+    color: #fafaf7;
+    padding: 6px 12px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+}
+
+.product-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+}
+
+.product-category {
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.product-price {
+    font-size: 14px;
+    font-weight: 400;
+    color: #1a1a1a;
+}
+
+.view-all {
+    text-align: center;
+    margin-top: 64px;
+}
+
+.btn-outline {
+    display: inline-block;
+    padding: 16px 44px;
+    border: 1px solid #0a0a0a;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    transition: all 0.3s;
+}
+
+.btn-outline:hover {
+    background: #0a0a0a;
+    color: #fafaf7;
+}
+
+/* ============ ABOUT ============ */
+.about {
+    background: #f5f2ec;
+    padding: 120px 40px;
+}
+
+.about-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.about-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    margin-bottom: 20px;
+    color: #4a4a4a;
+}
+
+.about-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400;
+    margin-bottom: 28px;
+    line-height: 1.15;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+    color: #2a2a2a;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.link-underline {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    border-bottom: 1px solid #0a0a0a;
+    padding-bottom: 4px;
+    transition: opacity 0.3s;
+}
+
+.link-underline:hover {
+    opacity: 0.6;
+}
+
+.about-image {
+    aspect-ratio: 4/5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-placeholder {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.25em;
+    font-weight: 300;
+}
+
+/* ============ TESTIMONIALS ============ */
+.testimonials {
+    padding: 100px 40px;
+    text-align: center;
+}
+
+.testimonial {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.testimonial-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 24px;
+    line-height: 1.4;
+}
+
+.testimonial-author {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: #666;
+}
+
+/* ============ NEWSLETTER ============ */
+.newsletter {
+    background: #0a0a0a;
+    color: #fafaf7;
+    padding: 100px 40px;
+    text-align: center;
+}
+
+.newsletter h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.newsletter p {
+    font-size: 14px;
+    color: #bbb;
+    margin-bottom: 40px;
+}
+
+.newsletter-form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    gap: 12px;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 16px 20px;
+    background: transparent;
+    border: 1px solid #444;
+    color: #fafaf7;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+}
+
+.newsletter-form input::placeholder {
+    color: #888;
+}
+
+.newsletter-form input:focus {
+    outline: none;
+    border-color: #fafaf7;
+}
+
+.newsletter-form button {
+    padding: 16px 32px;
+    background: #fafaf7;
+    color: #0a0a0a;
+    border: none;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    font-family: 'Inter', sans-serif;
+}
+
+.newsletter-form button:hover {
+    opacity: 0.85;
+}
+
+/* ============ FOOTER ============ */
+footer {
+    background: #fafaf7;
+    padding: 80px 40px 24px;
+    border-top: 1px solid #e8e8e8;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 60px;
+    margin-bottom: 60px;
+}
+
+.footer-col h4 {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.footer-col a {
+    display: block;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+}
+
+.footer-col a:hover {
+    color: #0a0a0a;
+}
+
+.footer-bottom {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 24px;
+    border-top: 1px solid #e8e8e8;
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    letter-spacing: 0.1em;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+    .nav-container {
+        padding: 18px 20px;
+        grid-template-columns: auto 1fr auto;
+    }
+
+    .nav-left, .nav-right {
+        gap: 16px;
+        font-size: 10px;
+    }
+
+    .nav-left a:not(:first-child),
+    .nav-right a:not(:last-child) {
+        display: none;
+    }
+
+    .nav-logo a {
+        font-size: 24px;
+    }
+
+    .about-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .collections, .shop, .about {
+        padding: 80px 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}
