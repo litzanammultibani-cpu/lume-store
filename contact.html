@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LÉTHÉ — Contact</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cookie-banner.css">
+</head>
+<body>
+    <!-- Announcement Bar -->
+    <div class="announcement">
+        FREE WORLDWIDE SHIPPING OVER €50 · 30-DAY RETURNS · LIFETIME CARE
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html#shop">SHOP</a>
+                <a href="index.html#collections">COLLECTIONS</a>
+                <a href="index.html#about">ABOUT</a>
+            </div>
+            <div class="nav-logo">
+                <a href="index.html"><img src="logo.svg" alt="LÉTHÉ" height="32"></a>
+            </div>
+            <div class="nav-right">
+                <a href="index.html" aria-label="Search">SEARCH</a>
+                <a href="index.html" aria-label="Account">ACCOUNT</a>
+                <a href="index.html" aria-label="Shopping bag">BAG</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="content-main">
+        <h1>Get in touch</h1>
+        <p class="content-subtitle">We read every message</p>
+
+        <p class="contact-tagline">We're a small house, and that means you talk to us directly — usually with a reply within 24 hours, from Strasbourg. Pick the address that fits, or send us a note below.</p>
+
+        <section class="contact-channels">
+            <div class="contact-channel">
+                <h3>General</h3>
+                <a href="mailto:hello@lethe.store">hello@lethe.store</a>
+            </div>
+            <div class="contact-channel">
+                <h3>Order help</h3>
+                <a href="mailto:orders@lethe.store">orders@lethe.store</a>
+            </div>
+            <div class="contact-channel">
+                <h3>Press</h3>
+                <a href="mailto:press@lethe.store">press@lethe.store</a>
+            </div>
+            <div class="contact-channel">
+                <h3>Wholesale</h3>
+                <a href="mailto:wholesale@lethe.store">wholesale@lethe.store</a>
+            </div>
+        </section>
+
+        <h2 style="text-align:center;">Send us a note</h2>
+
+        <form class="contact-form" id="contact-form" novalidate>
+            <div>
+                <label for="contact-name">Your name</label>
+                <input type="text" id="contact-name" name="name" required autocomplete="name" placeholder="First &amp; last name">
+            </div>
+            <div>
+                <label for="contact-email">Email</label>
+                <input type="email" id="contact-email" name="email" required autocomplete="email" placeholder="you@example.com">
+            </div>
+            <div>
+                <label for="contact-subject">Subject</label>
+                <select id="contact-subject" name="subject" required>
+                    <option value="">Choose a topic</option>
+                    <optgroup label="Orders &amp; shipping">
+                        <option value="where-is-order">Where is my order?</option>
+                        <option value="delayed-order">My order is late</option>
+                        <option value="not-received">Tracking says delivered but I don't have it</option>
+                        <option value="cancel-order">Cancel or change my order</option>
+                        <option value="wrong-address">I entered the wrong shipping address</option>
+                    </optgroup>
+                    <optgroup label="Issues with the item">
+                        <option value="damaged-item">Damaged or defective item</option>
+                        <option value="wrong-item">Wrong item received</option>
+                        <option value="missing-item">Missing item from my order</option>
+                        <option value="size-fit">Size or fit issue</option>
+                        <option value="tarnishing">Tarnishing or discoloration</option>
+                        <option value="skin-reaction">Skin reaction or irritation</option>
+                        <option value="warranty-claim">Warranty claim (within 1 year)</option>
+                    </optgroup>
+                    <optgroup label="Returns, refunds &amp; payments">
+                        <option value="return-request">Return request (30 days)</option>
+                        <option value="exchange-request">Exchange for a different size/style</option>
+                        <option value="refund-status">Refund status (already returned)</option>
+                        <option value="payment-issue">Payment or billing issue</option>
+                    </optgroup>
+                    <optgroup label="Account &amp; other">
+                        <option value="account-help">Account / login help</option>
+                        <option value="unsubscribe">Unsubscribe from newsletter</option>
+                        <option value="wholesale">Wholesale inquiry</option>
+                        <option value="press">Press / collaboration</option>
+                        <option value="personalization">Personalization / engraving request</option>
+                        <option value="gift-advice">Gift advice</option>
+                        <option value="general">Something else</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div>
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" name="message" required placeholder="Tell us how we can help."></textarea>
+            </div>
+            <button type="submit">SEND MESSAGE</button>
+            <div class="contact-form-success" id="contact-success" role="status" aria-live="polite"></div>
+        </form>
+
+        <div class="contact-meta">
+            <strong>LÉTHÉ · Strasbourg, France</strong>
+            Business hours: Monday to Friday · 9:00–18:00 CET
+            <div class="contact-socials">
+                <a href="#" aria-label="Instagram (coming soon)">Instagram</a>
+                <a href="#" aria-label="TikTok (coming soon)">TikTok</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    /* =========================================================
+       LÉTHÉ — Contact auto-reply system
+       Each subject maps to a tailored response that gives the
+       customer immediate self-service steps + a clear timeline
+       for human follow-up when it's genuinely needed.
+       ========================================================= */
+
+    const AUTO_REPLIES = {
+        'where-is-order': {
+            title: 'Let\'s find your order',
+            human: '24 hours',
+            route: 'orders@lethe.store',
+            body: `
+                <p>Most orders can be tracked right now — no need to wait:</p>
+                <ol>
+                    <li>Go to <a href="track.html">Track your order</a>.</li>
+                    <li>Enter your <strong>order number</strong> (starts with <code>#1000</code>) and the email you used at checkout.</li>
+                    <li>You'll see the current status (Pending → Processing → Shipped → Delivered) and carrier tracking link.</li>
+                </ol>
+                <p><strong>Heads up on timing:</strong> we dispatch from Strasbourg within 48 hours. You'll get a tracking email the moment the carrier collects it. If your order was placed less than 48 hours ago and says "Pending", it's likely still with us being packed.</p>
+                <p>If the status hasn't changed in 3+ business days or tracking isn't moving, reply here with your order number and we'll investigate with the carrier within 24 hours.</p>
+            `
+        },
+        'delayed-order': {
+            title: 'Sorry your order is running late',
+            human: '24 hours',
+            route: 'orders@lethe.store',
+            body: `
+                <p>Expected windows by destination:</p>
+                <ul>
+                    <li><strong>France:</strong> 3–5 business days</li>
+                    <li><strong>EU:</strong> 5–7 business days</li>
+                    <li><strong>UK / Switzerland:</strong> 4–7 business days</li>
+                    <li><strong>US &amp; Canada:</strong> 7–12 business days</li>
+                    <li><strong>Rest of world:</strong> 10–18 business days</li>
+                </ul>
+                <p>Before we escalate with the carrier:</p>
+                <ol>
+                    <li>Check your <strong>tracking number</strong> on the carrier's site (La Poste, Chronopost, DHL). Delays of 1–3 days are common and resolve themselves.</li>
+                    <li>Look in your building's mailbox, with neighbours, or a pick-up point (Mondial Relay for France).</li>
+                    <li>If genuinely overdue (5+ business days past the window above), we'll open a claim with the carrier. Carrier investigations take 5–10 business days; if the package is confirmed lost, we reship or refund immediately.</li>
+                </ol>
+                <p>Include your <strong>order number</strong> and <strong>tracking number</strong> in the message box so we can act fast.</p>
+            `
+        },
+        'not-received': {
+            title: 'Package marked delivered but missing',
+            human: '24 hours',
+            route: 'orders@lethe.store',
+            body: `
+                <p>Frustrating — let's work through it together. Most of the time we find the package within 48 hours.</p>
+                <p><strong>Before we escalate:</strong></p>
+                <ol>
+                    <li>Check every spot at your address: mailbox, concierge, porch, neighbours.</li>
+                    <li>Look at the tracking photo if your carrier provided one (Chronopost and DHL often do).</li>
+                    <li>If you had it sent to a pick-up point (Mondial Relay / point relais), visit in person with ID.</li>
+                    <li>Ask household members or roommates — someone may have taken it in.</li>
+                </ol>
+                <p><strong>Still missing?</strong> Reply with your order number and we'll file a formal claim with the carrier. Under EU consumer law you are fully protected: if the package doesn't reach you, we either reship or refund. Claims typically resolve in 5–10 business days.</p>
+            `
+        },
+        'cancel-order': {
+            title: 'Cancel or change your order',
+            human: '24 hours — but act fast',
+            route: 'orders@lethe.store',
+            body: `
+                <p><strong>Time-sensitive:</strong> we pack orders within 48 hours. Once shipped, we can't cancel — but you can still use our 30-day return window after it arrives.</p>
+                <p>Write your <strong>order number</strong> and what you'd like to change (cancel / change address / swap product) in the message box.</p>
+                <ul>
+                    <li><strong>If your order is still "Pending" or "Processing"</strong> → we can cancel or modify it. Free of charge.</li>
+                    <li><strong>If it's already "Shipped"</strong> → we'll coordinate a free return once it arrives, then issue a refund or reship the correct item.</li>
+                </ul>
+                <p>We reply within hours during business days (Mon–Fri 9–18 CET). Send your message now and we'll do our best to catch it before dispatch.</p>
+            `
+        },
+        'wrong-address': {
+            title: 'Wrong shipping address',
+            human: '24 hours — but act fast',
+            route: 'orders@lethe.store',
+            body: `
+                <p>We can fix this if the order hasn't shipped yet. Please reply with:</p>
+                <ul>
+                    <li>Your <strong>order number</strong></li>
+                    <li>The <strong>correct full address</strong> (street, number, apartment, postal code, city, country, phone)</li>
+                </ul>
+                <p><strong>If the order has already shipped:</strong> the package will be returned to us as undeliverable, usually in 1–3 weeks. Once we receive it back, we reship to the corrected address at no extra cost to you.</p>
+                <p>In rare cases carriers can reroute in-transit — we'll ask them. No guarantee, but worth trying.</p>
+            `
+        },
+        'damaged-item': {
+            title: 'So sorry — let\'s make this right',
+            human: '24 hours',
+            route: 'orders@lethe.store',
+            body: `
+                <p>Quality is everything at LÉTHÉ. If a piece arrived damaged, we'll replace or refund — no questions, no return shipping fee.</p>
+                <p><strong>To speed things up, please attach to your reply email:</strong></p>
+                <ol>
+                    <li>Your <strong>order number</strong></li>
+                    <li>2–3 clear <strong>photos</strong> of the damage (close-up + full view)</li>
+                    <li>A photo of the <strong>packaging</strong> if it was also damaged</li>
+                </ol>
+                <p>Within 24 hours we'll confirm a free replacement or a full refund, your choice. You usually don't need to return the damaged piece — just photos.</p>
+                <p><em>Tip: do this within 7 days of delivery for the fastest resolution under carrier-damage claims.</em></p>
+            `
+        },
+        'wrong-item': {
+            title: 'Wrong item — we\'ll fix it today',
+            human: '24 hours',
+            route: 'orders@lethe.store',
+            body: `
+                <p>Rare but it happens. We'll make it right fast.</p>
+                <ol>
+                    <li>In your reply, include your <strong>order number</strong>.</li>
+                    <li>Tell us <strong>what you received vs. what you ordered</strong> (one photo of the wrong piece helps).</li>
+                    <li>We'll ship the correct piece right away AND send you a prepaid return label for the wrong one — zero cost to you.</li>
+                </ol>
+                <p>The correct piece usually goes out the same day we confirm, so you'll receive it even before you ship the wrong one back.</p>
+            `
+        },
+        'missing-item': {
+            title: 'Missing item from your order',
+            human: '24 hours',
+            route: 'orders@lethe.store',
+            body: `
+                <p>Check first — sometimes pieces are nested inside the packaging or wrapped separately in the pouch.</p>
+                <p>If one is genuinely missing, reply with:</p>
+                <ul>
+                    <li><strong>Order number</strong></li>
+                    <li>Which item is missing</li>
+                    <li>A photo of everything you received (helps us match against what was packed)</li>
+                </ul>
+                <p>We double-check our packing records and dispatch the missing piece immediately — typically same-day. You keep everything you already received, no return needed.</p>
+            `
+        },
+        'size-fit': {
+            title: 'Let\'s find your perfect size',
+            human: '24 hours (but here\'s instant help)',
+            route: 'hello@lethe.store',
+            body: `
+                <p><strong>Our sizing at a glance:</strong></p>
+                <ul>
+                    <li>Most bracelets: <strong>16 cm + 3 cm extender</strong> (fits 15–19 cm wrists)</li>
+                    <li>Cuffs: adjustable 15–18 cm</li>
+                    <li>Tennis bracelets: 16 cm + 3 cm extender</li>
+                </ul>
+                <p><strong>Measure your wrist in 30 seconds:</strong></p>
+                <ol>
+                    <li>Wrap a piece of string or paper around your wrist where you'd wear a bracelet</li>
+                    <li>Mark where it overlaps</li>
+                    <li>Measure against a ruler</li>
+                    <li>Add <strong>1 cm for a comfortable fit</strong> (2 cm for looser drape)</li>
+                </ol>
+                <p>Typical women's wrist: 14–17 cm. Men / larger: 17–20 cm. If you're between sizes or unsure, tell us your wrist measurement in the message box and we'll recommend a size before you order — or swap it free if you already did.</p>
+            `
+        },
+        'tarnishing': {
+            title: 'Tarnishing — almost always fixable',
+            human: '24 hours',
+            route: 'hello@lethe.store',
+            body: `
+                <p>All silver tarnishes over time — even real 925 sterling. This is normal oxidation, not a quality problem. It's almost always fully reversible.</p>
+                <p><strong>Try this at home first:</strong></p>
+                <ol>
+                    <li>Use the <strong>polishing cloth included in your LÉTHÉ pouch</strong>. Rub gently for 30–60 seconds per spot.</li>
+                    <li>For heavier tarnish: warm water + a drop of mild dish soap + soft toothbrush. Rinse, dry thoroughly.</li>
+                    <li>Never use toothpaste or harsh chemicals — they scratch and accelerate tarnish.</li>
+                </ol>
+                <p><strong>To prevent future tarnish:</strong></p>
+                <ul>
+                    <li>Remove before showering, swimming, and sleeping</li>
+                    <li>Avoid perfume, lotion, chlorine, sea water</li>
+                    <li>Store in the LÉTHÉ pouch (keeps air out)</li>
+                </ul>
+                <p>If tarnish won't come off even after polishing, reply with photos and your order number — in rare cases it's a manufacturing issue and we cover it under our 1-year warranty.</p>
+            `
+        },
+        'skin-reaction': {
+            title: 'Skin reaction — here\'s what to check first',
+            human: '24 hours',
+            route: 'hello@lethe.store',
+            body: `
+                <p>All LÉTHÉ pieces are <strong>925 sterling silver</strong> — nickel-free. Genuine silver allergies affect less than 1% of people, so the cause is almost always external.</p>
+                <p><strong>Common real causes:</strong></p>
+                <ul>
+                    <li>Perfume or lotion residue trapped under the piece</li>
+                    <li>Moisture + friction (sweat, humidity)</li>
+                    <li>Tarnish reacting with acidic skin (rare)</li>
+                </ul>
+                <p><strong>Quick fixes at home:</strong></p>
+                <ol>
+                    <li>Stop wearing the piece while skin heals (1–3 days)</li>
+                    <li>Clean it with mild soap + water, dry completely</li>
+                    <li>Put product (perfume, lotion) on skin <em>first</em>, wait until dry, then the bracelet</li>
+                    <li>Rotate wrists so the same spot doesn't rub all day</li>
+                </ol>
+                <p>If a rash appears within your 14-day withdrawal window and doesn't resolve with the above, reply with a photo + order number and we'll treat it as a standard return (unused condition still required — don't wear further).</p>
+            `
+        },
+        'warranty-claim': {
+            title: 'Warranty claim (within 1 year)',
+            human: '48 hours',
+            route: 'returns@lethe.store',
+            body: `
+                <p>Every LÉTHÉ piece is covered by a <strong>1-year craftsmanship warranty</strong> for manufacturing defects (clasp breaks, stone loss, chain failure from normal wear). This is on top of the legally required 2-year EU conformity guarantee.</p>
+                <p><strong>To file a claim, include in your reply:</strong></p>
+                <ol>
+                    <li><strong>Order number</strong> and approximate purchase date</li>
+                    <li><strong>Clear photos</strong> of the problem</li>
+                    <li>Short description of what happened and when</li>
+                </ol>
+                <p><strong>What's covered:</strong> anything that fails from normal wear — clasp, chain, stone setting.<br>
+                <strong>What's not:</strong> accidental damage, loss, bent/crushed from impact, chemical damage (perfume/chlorine).</p>
+                <p>Most claims are approved within 48 hours. We then: repair (fastest), replace, or refund at your preference.</p>
+            `
+        },
+        'return-request': {
+            title: 'Return request — 14-day withdrawal period',
+            human: '24 hours',
+            route: 'returns@lethe.store',
+            body: `
+                <p>Under French law (Code de la Consommation, L221-18) you have a <strong>14-day right of withdrawal</strong> from the date of delivery. After that window, returns are no longer possible.</p>
+                <p><strong>Strict conditions — all must be met:</strong></p>
+                <ul>
+                    <li>Piece is <strong>unworn</strong> (no signs of wear, no scratches, no skin contact marks)</li>
+                    <li>In its <strong>original LÉTHÉ pouch</strong></li>
+                    <li><strong>Hang tag still attached</strong> (not removed or cut)</li>
+                    <li>Original packaging intact</li>
+                </ul>
+                <p>If any of these are not met, the return will be refused and the piece returned to you at your cost.</p>
+                <p><strong>How it works:</strong></p>
+                <ol>
+                    <li>Reply with your <strong>order number</strong> and the item(s) you want to return.</li>
+                    <li>We email you a return authorization with our Strasbourg return address.</li>
+                    <li><strong>Return shipping is at your charge</strong> (use a tracked method — we're not liable for packages lost in transit to us).</li>
+                    <li>Once received and inspected (3–5 business days), refund is processed to your original payment method.</li>
+                    <li>Refund lands within <strong>14 days</strong> of our receiving the parcel (legal maximum).</li>
+                </ol>
+                <p><strong>Final sale — no refund possible:</strong> engraved, personalized, or made-to-order pieces (L221-28).</p>
+            `
+        },
+        'exchange-request': {
+            title: 'Exchange for a different size or style',
+            human: '24 hours',
+            route: 'returns@lethe.store',
+            body: `
+                <p>Exchanges are available within the <strong>14-day withdrawal window</strong>. The piece must be unworn, with hang tag attached, in the original pouch.</p>
+                <p><strong>Fastest method — buy-new + return-old:</strong></p>
+                <ol>
+                    <li>Place a new order now for the replacement piece</li>
+                    <li>Reply with your <strong>original order number</strong> and which item to return</li>
+                    <li>Ship the original back (at your cost, tracked)</li>
+                    <li>Once we receive and inspect the original, the old order is refunded within 14 days</li>
+                </ol>
+                <p>This way you receive the new piece faster and avoid being out of stock on the size you want.</p>
+                <p><strong>Not available for:</strong> engraved / personalized pieces, or items outside the 14-day window.</p>
+            `
+        },
+        'refund-status': {
+            title: 'Refund status',
+            human: '24 hours',
+            route: 'returns@lethe.store',
+            body: `
+                <p><strong>Refund timeline after we receive your return:</strong></p>
+                <ol>
+                    <li><strong>Day 0:</strong> parcel arrives at our Strasbourg location</li>
+                    <li><strong>Day 1–5:</strong> we inspect condition (unworn, tag attached, original pouch)</li>
+                    <li><strong>Day 5–7:</strong> if accepted, refund is issued to your original payment method</li>
+                    <li><strong>Day 7–14:</strong> funds land (bank/card processing varies)</li>
+                </ol>
+                <p>Total from parcel arrival: up to <strong>14 days</strong> (French legal maximum).</p>
+                <p><strong>Refund refused?</strong> It means the item did not meet our return conditions — we'll email you with photos and ship the piece back at your cost. This is rare and only happens when pieces show wear, are missing the hang tag, or arrive without the original pouch.</p>
+                <p><strong>Running late?</strong> Reply with your <strong>original order number</strong> and the <strong>return tracking number</strong> — we'll locate it in our queue.</p>
+            `
+        },
+        'payment-issue': {
+            title: 'Payment or billing issue',
+            human: '24 hours (bank issues can be instant via your bank)',
+            route: 'hello@lethe.store',
+            body: `
+                <p>Most payment issues fall into 3 categories — here's the fastest fix for each:</p>
+                <p><strong>1. Payment declined but money was taken</strong><br>
+                Usually a temporary authorization that drops off automatically in 3–5 business days. If not, reply with the transaction date + amount and we'll confirm with Stripe that no charge was captured.</p>
+                <p><strong>2. Charged twice</strong><br>
+                Very rare. Reply with both transaction dates and amounts. We refund duplicates within 24 hours.</p>
+                <p><strong>3. Wrong amount / missing discount code</strong><br>
+                If your discount code didn't apply at checkout, reply with the code + order number. We'll refund the difference same day.</p>
+                <p>For Klarna / PayPal disputes, often <a href="https://www.klarna.com" target="_blank" rel="noopener">Klarna's app</a> or PayPal resolution centre is fastest — we can help from our side too.</p>
+            `
+        },
+        'account-help': {
+            title: 'Account help',
+            human: '24 hours (most fixes are instant)',
+            route: 'hello@lethe.store',
+            body: `
+                <p>Quick answers:</p>
+                <ul>
+                    <li><strong>Forgot password:</strong> on the sign-in page (account icon in top nav), click "Forgot your password?" — we email you a 6-digit code.</li>
+                    <li><strong>Can't find an order:</strong> orders are tied to the email you used at checkout. Try logging in with that same email.</li>
+                    <li><strong>Want to delete account / data (GDPR):</strong> reply with "Delete my account" + your email. We erase everything within 30 days.</li>
+                    <li><strong>Need to update email / name:</strong> reply with old email + new email.</li>
+                </ul>
+                <p>If nothing above matches, tell us what you're trying to do and the email on your account. We'll fix it manually within 24 hours.</p>
+            `
+        },
+        'unsubscribe': {
+            title: 'Unsubscribed — sorry to see you go',
+            human: 'Instant',
+            route: null,
+            body: `
+                <p>Every LÉTHÉ email has an <strong>"Unsubscribe"</strong> link at the bottom — one click removes you instantly.</p>
+                <p>If that link isn't working, reply to this email with the email address you want removed. We'll do it manually within 24 hours.</p>
+                <p>We only email about new drops (max 2× per month) and occasional sales. No spam, no sharing your address.</p>
+                <p><strong>Would you like to stay?</strong> We also have an Instagram-only "soft follow" where we never email but you still see new pieces. Just reply with "IG only".</p>
+            `
+        },
+        'wholesale': {
+            title: 'Wholesale inquiry',
+            human: '1–3 business days',
+            route: 'wholesale@lethe.store',
+            body: `
+                <p>Welcome — we love working with stockists.</p>
+                <p>In your reply, include:</p>
+                <ol>
+                    <li><strong>Your store name &amp; website</strong></li>
+                    <li><strong>Location(s)</strong> (physical &amp; online)</li>
+                    <li><strong>Average price point</strong> of what you stock</li>
+                    <li><strong>Opening order budget</strong> estimate</li>
+                    <li><strong>How you heard about LÉTHÉ</strong></li>
+                </ol>
+                <p>We'll send our <strong>linesheet</strong>, wholesale pricing (typically 50% of retail), MOQ and payment terms within 3 business days.</p>
+                <p>We're selective to protect the brand — not every inquiry gets accepted, and that's by design.</p>
+            `
+        },
+        'press': {
+            title: 'Press / collaboration',
+            human: '1–3 business days',
+            route: 'press@lethe.store',
+            body: `
+                <p>Thanks for reaching out.</p>
+                <p>For fastest turnaround, include in your reply:</p>
+                <ul>
+                    <li><strong>Publication / platform</strong> name and link</li>
+                    <li><strong>Type of coverage</strong> (editorial / product feature / collaboration / gifting)</li>
+                    <li><strong>Your audience</strong> (reach, demographic)</li>
+                    <li><strong>Deadlines</strong></li>
+                </ul>
+                <p>High-res images, brand story, and founder bios are available on request. We also do gifting for aligned editorial work.</p>
+                <p>For creator partnerships (Instagram / TikTok), please include your handle + typical engagement rate.</p>
+            `
+        },
+        'personalization': {
+            title: 'Personalization &amp; engraving',
+            human: '2–3 business days (quote)',
+            route: 'hello@lethe.store',
+            body: `
+                <p>We offer custom engraving on select pieces (chain bracelets, cuffs). Typical turnaround: <strong>+5–7 days</strong> on top of normal shipping.</p>
+                <p><strong>Options:</strong></p>
+                <ul>
+                    <li><strong>Initials / short text</strong> (up to 12 characters): +€8</li>
+                    <li><strong>Date / coordinates</strong>: +€12</li>
+                    <li><strong>Custom symbol / logo</strong>: quoted case-by-case</li>
+                </ul>
+                <p><strong>Reply with:</strong></p>
+                <ol>
+                    <li>Which LÉTHÉ piece you're interested in</li>
+                    <li>What text / symbol you want</li>
+                    <li>Your timeline (is it a gift with a specific date?)</li>
+                </ol>
+                <p><strong>Important:</strong> engraved pieces are final-sale (cannot be returned unless defective).</p>
+            `
+        },
+        'gift-advice': {
+            title: 'Gift advice',
+            human: '24 hours (or instant from our bestsellers)',
+            route: 'hello@lethe.store',
+            body: `
+                <p>Happy to help you pick the perfect piece.</p>
+                <p><strong>Safe bets by recipient:</strong></p>
+                <ul>
+                    <li><strong>Under 20, first silver:</strong> Céleste Chain Bracelet (€34) — minimalist, versatile</li>
+                    <li><strong>Twenties:</strong> Mira Paperclip Chain (€36) — trend-forward, still elegant</li>
+                    <li><strong>Thirties+:</strong> Aurora Bangle (€28) or Lune Tennis (€52) for a special occasion</li>
+                    <li><strong>Romantic gesture:</strong> Sienna Heart Bracelet (€32) or Étoile Charm (€38)</li>
+                    <li><strong>Going-all-out gift:</strong> Lune Tennis Bracelet (€52) — most statement-worthy</li>
+                </ul>
+                <p>Every LÉTHÉ piece arrives gift-ready in our pouch with a polishing cloth. Add a handwritten note for free at checkout.</p>
+                <p>If you want personalized advice, tell us: recipient's age range, style (minimal / statement / traditional), and budget — we'll recommend 2–3 pieces in 24 hours.</p>
+            `
+        },
+        'general': {
+            title: 'Thanks for reaching out',
+            human: '24 hours',
+            route: 'hello@lethe.store',
+            body: `
+                <p>We read every message personally — Litan and Cherif still do this themselves.</p>
+                <p>Expect a reply within <strong>24 hours</strong> during business days (Mon–Fri 9–18 CET). If you wrote on a weekend, we'll respond Monday morning.</p>
+                <p>Meanwhile, the <strong>chatbot</strong> at the bottom-right of every page can answer most FAQ-type questions instantly.</p>
+            `
+        }
+    };
+
+    (function () {
+        var form = document.getElementById('contact-form');
+        if (!form) return;
+        var success = document.getElementById('contact-success');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var name    = (document.getElementById('contact-name').value || '').trim();
+            var email   = (document.getElementById('contact-email').value || '').trim();
+            var subjectKey = (document.getElementById('contact-subject').value || '').trim();
+            var subjectLabel = (function () {
+                var sel = document.getElementById('contact-subject');
+                return sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : subjectKey;
+            })();
+            var message = (document.getElementById('contact-message').value || '').trim();
+
+            if (!name || !email || !subjectKey || !message) {
+                alert('Please fill in all fields before sending.');
+                return;
+            }
+
+            // 1. Save to localStorage so admin sees the ticket
+            try {
+                var key = 'lethe_contact_messages';
+                var existing = [];
+                try { existing = JSON.parse(localStorage.getItem(key) || '[]'); }
+                catch (err) { existing = []; }
+                existing.push({
+                    name: name,
+                    email: email,
+                    subject: subjectLabel,
+                    subjectKey: subjectKey,
+                    message: message,
+                    timestamp: new Date().toISOString(),
+                    status: 'new'
+                });
+                localStorage.setItem(key, JSON.stringify(existing));
+            } catch (err) { /* noop */ }
+
+            // 2. Show tailored auto-reply
+            var reply = AUTO_REPLIES[subjectKey] || AUTO_REPLIES['general'];
+            var firstName = name.split(' ')[0];
+            var replyHtml = '' +
+                '<div class="auto-reply">' +
+                  '<div class="auto-reply-header">' +
+                    '<span class="auto-reply-tag">AUTOMATED REPLY</span>' +
+                    '<h3>' + reply.title + ', ' + escapeHtmlLocal(firstName) + '.</h3>' +
+                  '</div>' +
+                  '<div class="auto-reply-body">' + reply.body + '</div>' +
+                  '<div class="auto-reply-meta">' +
+                    '<div><strong>Response time:</strong> ' + reply.human + '</div>' +
+                    (reply.route ? '<div><strong>Handled by:</strong> ' + reply.route + '</div>' : '') +
+                    '<div><strong>Reference:</strong> LTH-' + makeRef() + '</div>' +
+                  '</div>' +
+                  '<div class="auto-reply-actions">' +
+                    '<button type="button" id="auto-reply-email" class="auto-reply-btn-primary">SEND TO TEAM BY EMAIL</button>' +
+                    '<button type="button" id="auto-reply-close" class="auto-reply-btn-ghost">CLOSE</button>' +
+                  '</div>' +
+                  '<p class="auto-reply-note">We saved a copy of your message. A human will follow up if you need it — no action required from you unless the steps above don\'t solve it.</p>' +
+                '</div>';
+
+            success.innerHTML = replyHtml;
+            success.classList.add('show');
+            success.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // 3. Wire up the buttons
+            var emailBtn = document.getElementById('auto-reply-email');
+            var closeBtn = document.getElementById('auto-reply-close');
+            if (emailBtn) {
+                emailBtn.addEventListener('click', function () {
+                    var route = (AUTO_REPLIES[subjectKey] && AUTO_REPLIES[subjectKey].route) || 'hello@lethe.store';
+                    var body = 'From: ' + name + ' <' + email + '>\n\nSubject: ' + subjectLabel + '\n\n' + message;
+                    var mailto = 'mailto:' + route +
+                        '?subject=' + encodeURIComponent('[LÉTHÉ] ' + subjectLabel) +
+                        '&body=' + encodeURIComponent(body);
+                    window.location.href = mailto;
+                });
+            }
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function () {
+                    success.classList.remove('show');
+                    success.innerHTML = '';
+                    form.reset();
+                });
+            }
+        });
+
+        function makeRef() {
+            return Math.floor(Math.random() * 900000 + 100000).toString();
+        }
+        function escapeHtmlLocal(s) {
+            return String(s == null ? '' : s)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+    })();
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="legal.html">Mentions légales</a>
+            <span class="sep">·</span>
+            <a href="privacy.html">Privacy</a>
+            <span class="sep">·</span>
+            <a href="terms.html">Terms</a>
+            <span class="sep">·</span>
+            <a href="shipping.html">Shipping</a>
+            <span class="sep">·</span>
+            <a href="returns.html">Returns</a>
+            <span class="sep">·</span>
+            <a href="cookies.html">Cookies</a>
+            <span class="sep">·</span>
+            <a href="contact.html">Contact</a>
+            <span class="sep">·</span>
+            <button type="button" class="footer-manage-cookies" onclick="window.letheCookieOpen && window.letheCookieOpen()">Manage cookies</button>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 LÉTHÉ · The art of timeless silver.</p>
+        </div>
+    </footer>
+
+    <link rel="stylesheet" href="chatbot.css">
+    <script src="chatbot.js" defer></script>
+    <script src="cookie-banner.js" defer></script>
+</body>
+</html>

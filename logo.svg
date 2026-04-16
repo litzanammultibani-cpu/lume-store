@@ -1,23 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 80">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 50" width="400" height="50">
   <defs>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&amp;family=Inter:wght@300&amp;display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&amp;display=swap');
     </style>
   </defs>
-  <!-- Wordmark: LETHE with proper Unicode accented characters -->
-  <text x="190" y="44" text-anchor="middle"
-        font-family="'Cormorant Garamond', 'Georgia', 'Times New Roman', serif"
-        font-weight="500"
-        font-size="42"
-        letter-spacing="14"
-        fill="#0a0a0a">L&#xC9;TH&#xC9;</text>
-  <!-- Thin separator line -->
-  <line x1="135" y1="55" x2="245" y2="55" stroke="#0a0a0a" stroke-width="0.5"/>
-  <!-- Tagline -->
-  <text x="190" y="70" text-anchor="middle"
-        font-family="'Inter', 'Helvetica Neue', 'Arial', sans-serif"
-        font-weight="300"
-        font-size="8.5"
-        letter-spacing="4"
-        fill="#0a0a0a">FINE SILVER JEWELRY</text>
+  <text x="200" y="38"
+    font-family="'Cormorant Garamond', 'Didot', 'Bodoni MT', Georgia, serif"
+    font-size="46"
+    font-weight="400"
+    fill="#0a0a0a"
+    text-anchor="middle"
+    letter-spacing="16">L&#xC9;TH&#xC9;</text>
 </svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" fill="transparent"/>
+  <text x="16" y="24"
+    font-family="'Cormorant Garamond', 'Didot', 'Bodoni MT', Georgia, serif"
+    font-size="26"
+    font-weight="400"
+    fill="#0a0a0a"
+    text-anchor="middle"
+    letter-spacing="0">L</text>
+</svg>
