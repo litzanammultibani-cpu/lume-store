@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LÉTHÉ — Checkout</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cookie-banner.css">
+    <style>
+        .checkout-wrap {
+            max-width: 1100px;
+            margin: 60px auto 120px;
+            padding: 0 24px;
+        }
+        .checkout-wrap h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: clamp(2rem, 4vw, 3rem);
+            letter-spacing: 0.04em;
+            margin: 0 0 8px;
+        }
+        .checkout-wrap .crumb {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 40px;
+        }
+        .checkout-wrap .crumb a { color: inherit; text-decoration: none; }
+        .checkout-wrap .crumb a:hover { color: #000; }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 60px;
+            align-items: start;
+        }
+        @media (max-width: 860px) { .checkout-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+        .checkout-notice {
+            background: #fbf7f0;
+            border: 1px solid #e6dcc7;
+            padding: 18px 20px;
+            margin-bottom: 28px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+        .checkout-notice strong { letter-spacing: 0.06em; }
+
+        .checkout-section {
+            margin-bottom: 34px;
+        }
+        .checkout-section h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.78rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            margin: 0 0 18px;
+            color: #222;
+        }
+        .field { display: block; margin-bottom: 14px; }
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
+        .field label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #555;
+            margin-bottom: 6px;
+        }
+        .field input, .field select, .field textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d7d3ca;
+            background: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: #111;
+            border-radius: 0;
+            transition: border-color 0.18s ease;
+        }
+        .field input:focus, .field select:focus, .field textarea:focus {
+            outline: none;
+            border-color: #111;
+        }
+        .field .err {
+            display: none;
+            color: #b4261a;
+            font-size: 0.75rem;
+            margin-top: 6px;
+            font-family: 'Inter', sans-serif;
+        }
+        .field.has-error input, .field.has-error select { border-color: #b4261a; }
+        .field.has-error .err { display: block; }
+
+        .summary-card {
+            background: #fafaf7;
+            border: 1px solid #ece9e0;
+            padding: 28px 26px;
+            position: sticky;
+            top: 120px;
+        }
+        .summary-card h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.78rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            margin: 0 0 18px;
+        }
+        .summary-items { list-style: none; padding: 0; margin: 0 0 18px; }
+        .summary-items li {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee5d3;
+        }
+        .summary-items li:last-child { border-bottom: none; }
+        .summary-items .name { color: #222; }
+        .summary-items .qty { color: #999; margin-left: 6px; font-variant-numeric: tabular-nums; }
+        .summary-items .price { color: #222; font-variant-numeric: tabular-nums; }
+
+        .summary-totals {
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid #ece9e0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+        }
+        .summary-totals .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+        }
+        .summary-totals .row.total {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 8px;
+            padding-top: 14px;
+            border-top: 1px solid #ece9e0;
+            letter-spacing: 0.04em;
+        }
+        .summary-totals .muted { color: #888; font-size: 0.78rem; }
+
+        .place-btn {
+            width: 100%;
+            margin-top: 22px;
+            padding: 16px 20px;
+            background: #111;
+            color: #fff;
+            border: 1px solid #111;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .place-btn:hover { background: #333; }
+        .place-btn[disabled] { background: #bbb; border-color: #bbb; cursor: not-allowed; }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            font-family: 'Inter', sans-serif;
+            color: #666;
+        }
+        .empty-state a {
+            display: inline-block;
+            margin-top: 18px;
+            color: #111;
+            border-bottom: 1px solid #111;
+            padding-bottom: 2px;
+            text-decoration: none;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-size: 0.82rem;
+        }
+
+        .success-card {
+            text-align: center;
+            max-width: 560px;
+            margin: 60px auto;
+            padding: 60px 40px;
+            border: 1px solid #ece9e0;
+            background: #fafaf7;
+        }
+        .success-card .mark {
+            display: inline-flex;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #111;
+            color: #fff;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        .success-card h1 { margin: 0 0 10px; }
+        .success-card .order-ref {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 24px;
+        }
+        .success-card p { font-family: 'Inter', sans-serif; color: #444; line-height: 1.65; }
+        .success-card .cta {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 14px 28px;
+            background: #111;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Announcement Bar -->
+    <div class="announcement">
+        FREE WORLDWIDE SHIPPING OVER €50 · 14-DAY WITHDRAWAL · LIFETIME CARE
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html#shop">SHOP</a>
+                <a href="index.html#collections">COLLECTIONS</a>
+                <a href="index.html#about">ABOUT</a>
+            </div>
+            <div class="nav-logo">
+                <a href="index.html"><img src="logo.svg" alt="LÉTHÉ" height="32"></a>
+            </div>
+            <div class="nav-right">
+                <a href="contact.html">CONTACT</a>
+                <a href="track.html">TRACK</a>
+                <a href="index.html" aria-label="Shopping bag">BAG</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="checkout-wrap" id="checkout-root">
+        <p class="crumb"><a href="index.html">Home</a> / Checkout</p>
+        <h1>Checkout</h1>
+
+        <div class="checkout-notice" role="note">
+            <strong>PRE-LAUNCH</strong> — Online payment is not active yet. Place your order below and we'll email you within 24 hours with a secure payment link and shipping confirmation.
+        </div>
+
+        <div class="checkout-grid">
+            <!-- LEFT: form -->
+            <form id="checkout-form" novalidate>
+                <div class="checkout-section">
+                    <h2>Contact</h2>
+                    <div class="field">
+                        <label for="f-email">Email</label>
+                        <input type="email" id="f-email" name="email" required autocomplete="email">
+                        <span class="err">Please enter a valid email.</span>
+                    </div>
+                    <div class="field">
+                        <label for="f-phone">Phone (optional, for delivery)</label>
+                        <input type="tel" id="f-phone" name="phone" autocomplete="tel" inputmode="tel">
+                    </div>
+                </div>
+
+                <div class="checkout-section">
+                    <h2>Shipping address</h2>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="f-first">First name</label>
+                            <input type="text" id="f-first" name="firstName" required autocomplete="given-name">
+                            <span class="err">Required.</span>
+                        </div>
+                        <div class="field">
+                            <label for="f-last">Last name</label>
+                            <input type="text" id="f-last" name="lastName" required autocomplete="family-name">
+                            <span class="err">Required.</span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="f-addr1">Address</label>
+                        <input type="text" id="f-addr1" name="address1" required autocomplete="address-line1">
+                        <span class="err">Required.</span>
+                    </div>
+                    <div class="field">
+                        <label for="f-addr2">Apartment, suite, etc. (optional)</label>
+                        <input type="text" id="f-addr2" name="address2" autocomplete="address-line2">
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="f-city">City</label>
+                            <input type="text" id="f-city" name="city" required autocomplete="address-level2">
+                            <span class="err">Required.</span>
+                        </div>
+                        <div class="field">
+                            <label for="f-zip">Postal code</label>
+                            <input type="text" id="f-zip" name="postalCode" required autocomplete="postal-code">
+                            <span class="err">Required.</span>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="f-country">Country</label>
+                            <select id="f-country" name="country" required autocomplete="country">
+                                <option value="">Select…</option>
+                                <option value="FR">France</option>
+                                <option value="DE">Germany</option>
+                                <option value="BE">Belgium</option>
+                                <option value="NL">Netherlands</option>
+                                <option value="LU">Luxembourg</option>
+                                <option value="IT">Italy</option>
+                                <option value="ES">Spain</option>
+                                <option value="PT">Portugal</option>
+                                <option value="AT">Austria</option>
+                                <option value="IE">Ireland</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="CH">Switzerland</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="AU">Australia</option>
+                                <option value="OTHER">Other (we'll email you)</option>
+                            </select>
+                            <span class="err">Required.</span>
+                        </div>
+                        <div class="field">
+                            <label for="f-state">State / region (optional)</label>
+                            <input type="text" id="f-state" name="state" autocomplete="address-level1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout-section">
+                    <h2>Order notes (optional)</h2>
+                    <div class="field">
+                        <textarea id="f-notes" name="notes" rows="3" placeholder="Gift message, delivery instructions, engraving text…"></textarea>
+                    </div>
+                </div>
+            </form>
+
+            <!-- RIGHT: summary -->
+            <aside class="summary-card" aria-label="Order summary">
+                <h2>Your order</h2>
+                <ul class="summary-items" id="sum-items"></ul>
+                <div class="summary-totals">
+                    <div class="row"><span>Subtotal</span><span id="sum-subtotal">€0.00</span></div>
+                    <div class="row"><span>Shipping</span><span id="sum-shipping">—</span></div>
+                    <div class="row muted" id="sum-freeship-note" style="display:none;">Free shipping unlocked (orders ≥ €50)</div>
+                    <div class="row total"><span>Total</span><span id="sum-total">€0.00</span></div>
+                </div>
+                <button type="submit" form="checkout-form" class="place-btn" id="place-btn">Place order</button>
+                <p style="font-family:'Inter';font-size:0.7rem;color:#888;margin-top:14px;line-height:1.5;">
+                    By placing your order you agree to our
+                    <a href="terms.html" style="color:#111;">Terms</a> and
+                    <a href="privacy.html" style="color:#111;">Privacy Policy</a>.
+                </p>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 LÉTHÉ · Strasbourg, France · All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            'use strict';
+            const CART_KEY = 'lethe_cart';
+            const ORDERS_KEY = 'lethe_orders';
+            const FREE_SHIP_THRESHOLD = 50;
+            const DEFAULT_SHIPPING = 4.90;
+
+            const root = document.getElementById('checkout-root');
+            const itemsEl = document.getElementById('sum-items');
+            const subEl = document.getElementById('sum-subtotal');
+            const shipEl = document.getElementById('sum-shipping');
+            const totalEl = document.getElementById('sum-total');
+            const freeNote = document.getElementById('sum-freeship-note');
+            const form = document.getElementById('checkout-form');
+            const placeBtn = document.getElementById('place-btn');
+
+            function loadCart() {
+                try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+                catch (e) { return []; }
+            }
+            function saveCart(c) { localStorage.setItem(CART_KEY, JSON.stringify(c)); }
+            function fmt(n) { return '€' + n.toFixed(2); }
+
+            function render() {
+                const cart = loadCart();
+                if (!cart.length) {
+                    root.innerHTML = `
+                        <p class="crumb"><a href="index.html">Home</a> / Checkout</p>
+                        <h1>Your bag is empty</h1>
+                        <div class="empty-state">
+                            <p>Nothing to check out yet.</p>
+                            <a href="index.html#shop">Continue shopping →</a>
+                        </div>`;
+                    return;
+                }
+                itemsEl.innerHTML = cart.map(i =>
+                    `<li>
+                        <span class="name">${escapeHtml(i.name)}<span class="qty">× ${i.qty}</span></span>
+                        <span class="price">${fmt(i.price * i.qty)}</span>
+                    </li>`
+                ).join('');
+                const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+                const shipping = subtotal >= FREE_SHIP_THRESHOLD ? 0 : DEFAULT_SHIPPING;
+                subEl.textContent = fmt(subtotal);
+                shipEl.textContent = shipping === 0 ? 'Free' : fmt(shipping);
+                freeNote.style.display = shipping === 0 ? 'flex' : 'none';
+                totalEl.textContent = fmt(subtotal + shipping);
+            }
+
+            function escapeHtml(s) {
+                return String(s).replace(/[&<>"']/g, c =>
+                    ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' })[c]
+                );
+            }
+
+            function validate() {
+                let ok = true;
+                form.querySelectorAll('.field').forEach(f => f.classList.remove('has-error'));
+                const required = ['f-email','f-first','f-last','f-addr1','f-city','f-zip','f-country'];
+                required.forEach(id => {
+                    const el = document.getElementById(id);
+                    const v = (el.value || '').trim();
+                    if (!v) {
+                        el.closest('.field').classList.add('has-error');
+                        ok = false;
+                    }
+                });
+                // Email format
+                const emailEl = document.getElementById('f-email');
+                const val = (emailEl.value || '').trim();
+                if (val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+                    emailEl.closest('.field').classList.add('has-error');
+                    ok = false;
+                }
+                return ok;
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (!validate()) {
+                    const firstErr = form.querySelector('.field.has-error');
+                    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+                placeBtn.disabled = true;
+                placeBtn.textContent = 'Placing order…';
+
+                const cart = loadCart();
+                const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+                const shipping = subtotal >= FREE_SHIP_THRESHOLD ? 0 : DEFAULT_SHIPPING;
+                const total = subtotal + shipping;
+
+                let orders = [];
+                try { orders = JSON.parse(localStorage.getItem(ORDERS_KEY)) || []; } catch (e) {}
+                const number = orders.length ? Math.max.apply(null, orders.map(o => o.number || 0)) + 1 : 1001;
+                const now = Date.now();
+                const data = new FormData(form);
+
+                const order = {
+                    number,
+                    customer: `${(data.get('firstName')||'').trim()} ${(data.get('lastName')||'').trim()}`.trim() || 'Guest',
+                    email: (data.get('email')||'').trim(),
+                    phone: (data.get('phone')||'').trim(),
+                    shipping: {
+                        address1: (data.get('address1')||'').trim(),
+                        address2: (data.get('address2')||'').trim(),
+                        city: (data.get('city')||'').trim(),
+                        state: (data.get('state')||'').trim(),
+                        postalCode: (data.get('postalCode')||'').trim(),
+                        country: (data.get('country')||'').trim()
+                    },
+                    notes: (data.get('notes')||'').trim(),
+                    items: cart.map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty })),
+                    subtotal,
+                    shippingFee: shipping,
+                    total,
+                    createdAt: now,
+                    status: 'Pending payment',
+                    trackingNumber: '',
+                    carrier: '',
+                    trackingUrl: '',
+                    statusHistory: [{ status: 'Pending payment', at: now }]
+                };
+                orders.push(order);
+                localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
+
+                // Clear cart
+                saveCart([]);
+
+                // Success screen
+                root.innerHTML = `
+                    <div class="success-card">
+                        <div class="mark">✓</div>
+                        <h1>Thank you, ${escapeHtml(order.customer.split(' ')[0] || 'friend')}.</h1>
+                        <p class="order-ref">Order · #${order.number}</p>
+                        <p>We received your order. Since online payment isn't active yet, we'll email <strong>${escapeHtml(order.email)}</strong> within 24 hours with a secure payment link and shipping details.</p>
+                        <p style="margin-top:18px;">Total: <strong>${fmt(order.total)}</strong> — ${cart.reduce((s,i)=>s+i.qty,0)} item(s).</p>
+                        <a href="index.html" class="cta">Back to store</a>
+                    </div>`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            render();
+        })();
+    </script>
+
+    <script src="cookie-banner.js" defer></script>
+</body>
+</html>

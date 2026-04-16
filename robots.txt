@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin.html
+Disallow: /checkout.html
+Disallow: /track.html
+
+# Respect everything else
+Allow: /
+
+Sitemap: https://lethe.store/sitemap.xml

@@ -365,37 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     checkoutBtn.addEventListener('click', () => {
         if (cart.length === 0) return;
-        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-        const user  = getStoredUser();
-
-        // Log the order for the admin panel
-        let orders = [];
-        try { orders = JSON.parse(localStorage.getItem('lethe_orders')) || []; } catch {}
-        const number = orders.length > 0 ? Math.max(...orders.map(o => o.number || 0)) + 1 : 1001;
-        const now = Date.now();
-        const order = {
-            number,
-            customer: user?.name || 'Guest',
-            email:    user?.email || '',
-            items: cart.map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty })),
-            total,
-            createdAt: now,
-            status: 'Pending',
-            trackingNumber: '',
-            carrier: '',
-            trackingUrl: '',
-            statusHistory: [{ status: 'Pending', at: now }]
-        };
-        orders.push(order);
-        localStorage.setItem('lethe_orders', JSON.stringify(orders));
-
-        alert(`Order #${number} placed (demo): €${total.toFixed(2)}\n\nCheck the admin panel to see it. When you go live, this will open real Stripe/Shopify checkout.`);
-
-        // Clear cart
-        cart = [];
-        saveCart();
-        renderCart();
-        closeCart();
+        // Navigate to the proper checkout page — cart is already in localStorage.
+        window.location.href = 'checkout.html';
     });
 
     // Add to bag

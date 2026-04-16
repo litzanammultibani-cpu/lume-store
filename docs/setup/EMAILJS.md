@@ -2,7 +2,9 @@
 
 LÉTHÉ's password recovery sends a 6-digit verification code by email. The actual email sending uses **EmailJS** — a free service that lets static sites send real emails without a backend server. You set up an EmailJS account once, paste three values into `emailjs-config.js`, and recovery emails go out automatically.
 
-**Until you configure this**, recovery still works — but the code is shown in a popup on screen instead of emailed. That's fine for local testing.
+> **Current status:** `emailjs-config.js` ships with **empty placeholders**. Until you fill in the 3 values below, recovery is in **development mode** — it still works, but the code is shown in a popup on screen instead of being emailed. Nothing breaks. This is fine for local testing and for friends-and-family previews.
+>
+> **Before you go public**, fill in the config. The admin login's "Forgot password" flow is the only user-facing feature that depends on it, so the cost of forgetting is low — but a real customer who hits "Forgot password" would see the code on screen, which looks amateur.
 
 ---
 
