@@ -127,6 +127,9 @@
                 <button class="sb-link" data-view="orders">
                     <span class="sb-icon">❖</span> Orders
                 </button>
+                <button class="sb-link" data-view="finance">
+                    <span class="sb-icon">€</span> Finances
+                </button>
                 <button class="sb-link" data-view="customers">
                     <span class="sb-icon">◉</span> Customers
                 </button>
@@ -252,6 +255,235 @@
                         </thead>
                         <tbody></tbody>
                     </table>
+                </div>
+            </section>
+
+            <!-- ========== FINANCES ========== -->
+            <section class="view" data-view="finance">
+                <div class="view-header">
+                    <h1>Finances</h1>
+                    <p>Sales, expenses, margins, invoices &mdash; everything money.</p>
+                </div>
+
+                <!-- Sub-tabs -->
+                <div class="fin-tabs" role="tablist">
+                    <button class="fin-tab active" data-fin-tab="overview" type="button">Overview</button>
+                    <button class="fin-tab" data-fin-tab="expenses" type="button">Expenses</button>
+                    <button class="fin-tab" data-fin-tab="cogs" type="button">Product costs</button>
+                    <button class="fin-tab" data-fin-tab="invoices" type="button">Invoices</button>
+                    <button class="fin-tab" data-fin-tab="livre" type="button">Livre de recettes</button>
+                    <button class="fin-tab" data-fin-tab="business" type="button">Business info</button>
+                </div>
+
+                <!-- Overview panel -->
+                <div class="fin-panel active" data-fin-panel="overview">
+                    <div class="fin-period">
+                        <label>Period:
+                            <select id="fin-period-select">
+                                <option value="month">This month</option>
+                                <option value="last-month">Last month</option>
+                                <option value="quarter">This quarter</option>
+                                <option value="last-quarter">Last quarter</option>
+                                <option value="year">This year</option>
+                                <option value="all">All time</option>
+                            </select>
+                        </label>
+                        <span class="fin-period-range" id="fin-period-range"></span>
+                    </div>
+                    <div class="fin-cards">
+                        <div class="fin-card">
+                            <div class="fin-card-label">Revenue</div>
+                            <div class="fin-card-value" id="fin-revenue">&euro;0.00</div>
+                            <div class="fin-card-hint" id="fin-revenue-hint">0 orders</div>
+                        </div>
+                        <div class="fin-card">
+                            <div class="fin-card-label">Expenses</div>
+                            <div class="fin-card-value" id="fin-expenses">&euro;0.00</div>
+                            <div class="fin-card-hint" id="fin-expenses-hint">0 entries</div>
+                        </div>
+                        <div class="fin-card">
+                            <div class="fin-card-label">Gross profit</div>
+                            <div class="fin-card-value" id="fin-gross">&euro;0.00</div>
+                            <div class="fin-card-hint">Revenue &minus; COGS</div>
+                        </div>
+                        <div class="fin-card fin-card-dark">
+                            <div class="fin-card-label">Net profit</div>
+                            <div class="fin-card-value" id="fin-net">&euro;0.00</div>
+                            <div class="fin-card-hint">Revenue &minus; COGS &minus; Expenses</div>
+                        </div>
+                    </div>
+                    <div class="fin-split">
+                        <div class="fin-box">
+                            <h3>Top expense categories</h3>
+                            <table class="mini-table" id="fin-top-expenses"><tbody></tbody></table>
+                        </div>
+                        <div class="fin-box">
+                            <h3>Best-selling products (revenue)</h3>
+                            <table class="mini-table" id="fin-top-products"><tbody></tbody></table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expenses panel -->
+                <div class="fin-panel" data-fin-panel="expenses">
+                    <div class="fin-panel-header">
+                        <div class="fin-filter-row">
+                            <input type="search" id="fin-exp-search" placeholder="Search description or supplier&hellip;">
+                            <select id="fin-exp-filter-cat">
+                                <option value="">All categories</option>
+                            </select>
+                            <select id="fin-exp-filter-period">
+                                <option value="all">All time</option>
+                                <option value="month">This month</option>
+                                <option value="last-month">Last month</option>
+                                <option value="quarter">This quarter</option>
+                                <option value="year">This year</option>
+                            </select>
+                        </div>
+                        <div class="fin-panel-actions">
+                            <button type="button" class="btn-secondary" id="fin-exp-export">Export CSV</button>
+                            <button type="button" class="btn-primary" id="fin-exp-add">+ ADD EXPENSE</button>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="data-table" id="fin-exp-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Supplier</th>
+                                    <th>Description</th>
+                                    <th style="text-align:right;">Amount</th>
+                                    <th style="width:110px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- COGS panel -->
+                <div class="fin-panel" data-fin-panel="cogs">
+                    <p class="fin-hint">Set what each piece costs you to make/buy. Used to compute margin &amp; gross profit. Updates apply everywhere in Finances.</p>
+                    <div class="table-wrap">
+                        <table class="data-table" id="fin-cogs-table">
+                            <thead>
+                                <tr>
+                                    <th>SKU</th>
+                                    <th>Name</th>
+                                    <th style="text-align:right;">Selling price</th>
+                                    <th style="text-align:right;width:150px;">Cost per unit (&euro;)</th>
+                                    <th style="text-align:right;">Margin &euro;</th>
+                                    <th style="text-align:right;">Margin %</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Invoices panel -->
+                <div class="fin-panel" data-fin-panel="invoices">
+                    <p class="fin-hint">One invoice is generated per paid order, numbered sequentially per year (e.g. <code>CA-2026-0001</code>). Fill in your Business info tab before your first invoice &mdash; the PDF pulls SIREN, address and TVA status from there.</p>
+                    <div class="table-wrap">
+                        <table class="data-table" id="fin-inv-table">
+                            <thead>
+                                <tr>
+                                    <th>Invoice #</th>
+                                    <th>Order #</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th style="text-align:right;">Total</th>
+                                    <th>Status</th>
+                                    <th style="width:180px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Livre de recettes panel -->
+                <div class="fin-panel" data-fin-panel="livre">
+                    <p class="fin-hint">Mandatory daily receipt book for French micro-entrepreneurs. Chronological, append-only, numbered. Keep this for 10 years (tax audit). Export for your accountant each quarter.</p>
+                    <div class="fin-panel-actions" style="justify-content:flex-end;">
+                        <button type="button" class="btn-secondary" id="fin-livre-export-csv">Export CSV</button>
+                        <button type="button" class="btn-secondary" id="fin-livre-export-urssaf">URSSAF quarterly</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="data-table" id="fin-livre-table">
+                            <thead>
+                                <tr>
+                                    <th>Line #</th>
+                                    <th>Date</th>
+                                    <th>Invoice #</th>
+                                    <th>Customer</th>
+                                    <th>Payment</th>
+                                    <th style="text-align:right;">Amount TTC</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Business info panel -->
+                <div class="fin-panel" data-fin-panel="business">
+                    <p class="fin-hint">These details appear on every invoice PDF and on URSSAF exports. Leave blank until you register &mdash; invoices will be marked DRAFT.</p>
+                    <form id="fin-business-form" class="fin-form">
+                        <div class="fin-form-grid">
+                            <label>Company name
+                                <input type="text" id="bi-name" placeholder="CARTHEON">
+                            </label>
+                            <label>Legal form
+                                <select id="bi-form">
+                                    <option value="">Not registered yet</option>
+                                    <option value="micro">Micro-entrepreneur (auto-entrepreneur)</option>
+                                    <option value="ei">Entreprise individuelle</option>
+                                    <option value="eurl">EURL</option>
+                                    <option value="sasu">SASU</option>
+                                    <option value="sas">SAS</option>
+                                    <option value="sarl">SARL</option>
+                                </select>
+                            </label>
+                            <label>SIREN / SIRET
+                                <input type="text" id="bi-siren" placeholder="123 456 789 00012">
+                            </label>
+                            <label>APE / NAF code
+                                <input type="text" id="bi-ape" placeholder="3213Z">
+                            </label>
+                            <label class="fin-form-wide">Address
+                                <input type="text" id="bi-address" placeholder="12 rue de la Paix, 67000 Strasbourg, France">
+                            </label>
+                            <label>TVA status
+                                <select id="bi-tva-status">
+                                    <option value="franchise">Franchise en base (TVA non applicable, art. 293 B du CGI)</option>
+                                    <option value="registered">TVA registered</option>
+                                </select>
+                            </label>
+                            <label>TVA number (if registered)
+                                <input type="text" id="bi-tva-number" placeholder="FR12345678901">
+                            </label>
+                            <label>IBAN (optional, for invoice footer)
+                                <input type="text" id="bi-iban" placeholder="FR76 1234 5678&hellip;">
+                            </label>
+                            <label>BIC
+                                <input type="text" id="bi-bic" placeholder="BNPAFRPPXXX">
+                            </label>
+                            <label>Invoice prefix
+                                <input type="text" id="bi-prefix" placeholder="CA" maxlength="6">
+                            </label>
+                            <label>Invoice start number
+                                <input type="number" id="bi-start" min="1" placeholder="1">
+                            </label>
+                            <label>Default payment terms (days)
+                                <input type="number" id="bi-terms" min="0" max="120" value="0" placeholder="0 = immediate">
+                            </label>
+                        </div>
+                        <div class="fin-form-actions">
+                            <button type="submit" class="btn-primary">Save business info</button>
+                        </div>
+                    </form>
                 </div>
             </section>
 
@@ -448,5 +680,8 @@
     </div>
 
     <script src="admin.js"></script>
+    <!-- jsPDF for invoice PDF export -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
+    <script src="admin-finance.js" defer></script>
 </body>
 </html>

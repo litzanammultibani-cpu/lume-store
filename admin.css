@@ -1040,3 +1040,298 @@ button { font-family: inherit; }
         justify-content: flex-end;
     }
 }
+
+/* ============================================================
+   FINANCES — sub-tab strip, panels, cards, tables, modal, form
+   ============================================================ */
+.fin-tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid #ece9e0;
+    margin-bottom: 28px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+.fin-tab {
+    background: transparent;
+    border: none;
+    padding: 12px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #777;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+}
+.fin-tab:hover { color: #0a0a0a; }
+.fin-tab.active { color: #0a0a0a; border-bottom-color: #0a0a0a; font-weight: 500; }
+
+.fin-panel { display: none; }
+.fin-panel.active { display: block; }
+
+.fin-hint {
+    color: #666;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+    line-height: 1.55;
+}
+.fin-hint code {
+    background: #f4f1ea;
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.82em;
+}
+
+/* Period selector */
+.fin-period {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+.fin-period label {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #666;
+}
+.fin-period select {
+    padding: 8px 12px;
+    border: 1px solid #d7d3ca;
+    background: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: normal;
+    text-transform: none;
+    color: #0a0a0a;
+}
+.fin-period-range {
+    color: #0a0a0a;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* P&L cards */
+.fin-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+}
+.fin-card {
+    background: #fff;
+    border: 1px solid #ece9e0;
+    padding: 22px 24px;
+}
+.fin-card.fin-card-dark {
+    background: #0a0a0a;
+    color: #fafaf7;
+    border-color: #0a0a0a;
+}
+.fin-card-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 8px;
+}
+.fin-card-dark .fin-card-label { color: #999; }
+.fin-card-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    color: #0a0a0a;
+}
+.fin-card-dark .fin-card-value { color: #fafaf7; }
+.fin-card-hint {
+    margin-top: 6px;
+    font-size: 0.72rem;
+    color: #888;
+}
+.fin-card-dark .fin-card-hint { color: #999; }
+
+/* Split layout */
+.fin-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+@media (max-width: 860px) {
+    .fin-split { grid-template-columns: 1fr; }
+}
+.fin-box {
+    background: #fff;
+    border: 1px solid #ece9e0;
+    padding: 22px 24px;
+}
+.fin-box h3 {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+.mini-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+.mini-table td {
+    padding: 7px 0;
+    border-bottom: 1px solid #f4f1ea;
+}
+.mini-table tr:last-child td { border-bottom: none; }
+.mini-table .muted { color: #999; font-style: italic; }
+
+/* Panel headers with filters and actions */
+.fin-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+.fin-filter-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.fin-filter-row input,
+.fin-filter-row select {
+    padding: 8px 12px;
+    border: 1px solid #d7d3ca;
+    background: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    color: #0a0a0a;
+    min-width: 160px;
+}
+.fin-panel-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* COGS margin colors */
+#fin-cogs-table td.pos { color: #6aa87a; }
+#fin-cogs-table td.neg { color: #b4261a; }
+#fin-cogs-table td.muted { color: #999; }
+#fin-cogs-table .cogs-input {
+    padding: 6px 8px;
+    border: 1px solid #d7d3ca;
+    background: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+}
+
+/* Row action buttons (reuse visual language from Orders) */
+.btn-row {
+    background: transparent;
+    border: 1px solid #d7d3ca;
+    color: #0a0a0a;
+    padding: 5px 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-right: 4px;
+    transition: border-color 0.15s, background 0.15s;
+}
+.btn-row:hover { border-color: #0a0a0a; background: #f4f1ea; }
+.btn-row.danger { color: #b4261a; border-color: #e4c8c3; }
+.btn-row.danger:hover { background: #fbe8e4; border-color: #b4261a; }
+
+/* Finances modal */
+.fin-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 200;
+}
+.fin-modal-card {
+    background: #fff;
+    padding: 30px 32px;
+    max-width: 540px;
+    width: 100%;
+    border: 1px solid #ece9e0;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.fin-modal-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 18px;
+}
+
+/* Finance forms (shared between modal and Business info page) */
+.fin-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+@media (max-width: 640px) { .fin-form-grid { grid-template-columns: 1fr; } }
+.fin-form-wide { grid-column: 1 / -1; }
+.fin-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #555;
+}
+.fin-form-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #555;
+}
+.fin-form input,
+.fin-form select,
+.fin-form-grid input,
+.fin-form-grid select {
+    padding: 10px 12px;
+    border: 1px solid #d7d3ca;
+    background: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.94rem;
+    color: #0a0a0a;
+    letter-spacing: normal;
+    text-transform: none;
+}
+.fin-form input:focus,
+.fin-form select:focus,
+.fin-form-grid input:focus,
+.fin-form-grid select:focus { outline: none; border-color: #0a0a0a; }
+
+.fin-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Business info: wider layout */
+#fin-business-form .fin-form-grid { grid-template-columns: 1fr 1fr; }
+@media (max-width: 720px) {
+    #fin-business-form .fin-form-grid { grid-template-columns: 1fr; }
+}
