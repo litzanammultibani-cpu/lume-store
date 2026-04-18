@@ -246,7 +246,8 @@ document.addEventListener('DOMContentLoaded', () => {
         unlockScroll();
     };
 
-    accountTrigger.addEventListener('click', (e) => { e.preventDefault(); openAccount(); });
+    // accountTrigger click handled by auth-shared.js (redirects to account.html).
+    // If you want the modal back on index.html, remove auth-shared.js's wireNavTriggers.
     accountClose.addEventListener('click', closeAccount);
     successClose.addEventListener('click', closeAccount);
 

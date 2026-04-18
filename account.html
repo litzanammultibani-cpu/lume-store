@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CARTHEON — Account</title>
+    <meta name="description" content="Sign in to your CARTHEON account, or create one in seconds.">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Apply saved theme as early as possible -->
+    <script id="theme-early-apply">(function(){try{var t=localStorage.getItem("cartheon_theme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+    <style>
+        html, body { background: var(--auth-bg, #f4f1ea); }
+        html[data-theme="dark"] { --auth-bg: #0a0a0a; }
+        html[data-theme="dark"] body { background: #0a0a0a; }
+
+        .auth-shell {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .auth-topbar {
+            padding: 22px 32px;
+            border-bottom: 1px solid #ece9e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fafaf7;
+        }
+        html[data-theme="dark"] .auth-topbar {
+            background: #0e0e0e;
+            border-bottom-color: #2a2824;
+        }
+        .auth-topbar a {
+            color: inherit;
+            text-decoration: none;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #888;
+            transition: color 0.15s;
+        }
+        .auth-topbar a:hover { color: #0a0a0a; }
+        html[data-theme="dark"] .auth-topbar a:hover { color: #fff; }
+        .auth-topbar .topbar-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.3em;
+            color: #0a0a0a;
+            font-weight: 400;
+        }
+        html[data-theme="dark"] .auth-topbar .topbar-brand { color: #fafaf7; }
+
+        .theme-toggle-page {
+            background: transparent;
+            border: 1px solid transparent;
+            color: inherit;
+            cursor: pointer;
+            font-size: 1.1rem;
+            line-height: 1;
+            padding: 6px 10px;
+            transition: border-color 0.18s;
+        }
+        .theme-toggle-page:hover { border-color: currentColor; }
+
+        .auth-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+        .auth-card {
+            background: #fafaf7;
+            max-width: 460px;
+            width: 100%;
+            padding: 56px 44px 40px;
+            border: 1px solid #ece9e0;
+        }
+        html[data-theme="dark"] .auth-card {
+            background: #17171a;
+            color: #e7e5df;
+            border-color: #2a2824;
+        }
+        .auth-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.9rem;
+            letter-spacing: 0.3em;
+            text-align: center;
+            color: #0a0a0a;
+            font-weight: 400;
+            margin: 0;
+        }
+        html[data-theme="dark"] .auth-logo { color: #fafaf7; }
+        .auth-sub {
+            font-size: 0.7rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            text-align: center;
+            color: #888;
+            margin: 6px 0 32px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid #ece9e0;
+            margin-bottom: 28px;
+        }
+        html[data-theme="dark"] .auth-tabs { border-bottom-color: #2a2824; }
+        .auth-tab {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #888;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: color 0.15s, border-color 0.15s;
+        }
+        .auth-tab.active {
+            color: #0a0a0a;
+            border-bottom-color: #0a0a0a;
+            font-weight: 500;
+        }
+        html[data-theme="dark"] .auth-tab.active {
+            color: #fafaf7;
+            border-bottom-color: #fafaf7;
+        }
+
+        .auth-hint {
+            font-size: 0.8rem;
+            color: #666;
+            line-height: 1.55;
+            text-align: center;
+            margin: 0 0 28px;
+        }
+        html[data-theme="dark"] .auth-hint { color: #9c9a93; }
+
+        .auth-form { display: block; }
+        .auth-form.hidden { display: none; }
+        .auth-form label {
+            display: block;
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #555;
+            margin-bottom: 16px;
+        }
+        html[data-theme="dark"] .auth-form label { color: #9c9a93; }
+        .auth-form input {
+            display: block;
+            width: 100%;
+            margin-top: 8px;
+            padding: 13px 14px;
+            border: 1px solid #d7d3ca;
+            background: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: #0a0a0a;
+            letter-spacing: normal;
+            text-transform: none;
+            transition: border-color 0.18s;
+        }
+        html[data-theme="dark"] .auth-form input {
+            background: #0e0e0e;
+            border-color: #2a2824;
+            color: #e7e5df;
+        }
+        .auth-form input:focus {
+            outline: none;
+            border-color: #0a0a0a;
+        }
+        html[data-theme="dark"] .auth-form input:focus { border-color: #e7e5df; }
+
+        .auth-submit {
+            margin-top: 14px;
+            width: 100%;
+            padding: 15px 20px;
+            background: #0a0a0a;
+            color: #fafaf7;
+            border: 1px solid #0a0a0a;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .auth-submit:hover { background: #333; }
+        html[data-theme="dark"] .auth-submit {
+            background: #e7e5df;
+            color: #0a0a0a;
+            border-color: #e7e5df;
+        }
+        html[data-theme="dark"] .auth-submit:hover { background: #fff; }
+        .auth-submit[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+        .auth-err {
+            color: #b4261a;
+            font-size: 0.82rem;
+            margin-top: 14px;
+            min-height: 1.2em;
+            text-align: center;
+        }
+
+        .auth-footer-link {
+            display: block;
+            margin-top: 24px;
+            text-align: center;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #888;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .auth-footer-link:hover { color: #0a0a0a; }
+        html[data-theme="dark"] .auth-footer-link:hover { color: #fff; }
+
+        /* Signed-in view */
+        .auth-success { text-align: center; }
+        .auth-success h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.7rem;
+            font-weight: 300;
+            margin: 0 0 10px;
+        }
+        .auth-success p {
+            color: #666;
+            margin: 0 0 24px;
+            line-height: 1.6;
+        }
+        html[data-theme="dark"] .auth-success p { color: #9c9a93; }
+        .auth-success-actions {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+        }
+        .auth-success-actions .auth-submit { margin: 0; }
+        .auth-success-actions .auth-submit.secondary {
+            background: transparent;
+            color: #0a0a0a;
+            border-color: #d7d3ca;
+        }
+        html[data-theme="dark"] .auth-success-actions .auth-submit.secondary {
+            background: transparent;
+            color: #e7e5df;
+            border-color: #2a2824;
+        }
+
+        @media (max-width: 520px) {
+            .auth-topbar { padding: 18px 20px; }
+            .auth-card { padding: 40px 28px 32px; }
+            .auth-logo { font-size: 1.6rem; letter-spacing: 0.25em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-shell">
+        <!-- Minimal topbar -->
+        <header class="auth-topbar">
+            <a href="index.html" aria-label="Home" class="topbar-brand">CARTHEON</a>
+            <div style="display:flex;gap:14px;align-items:center;">
+                <a href="index.html">← Back to store</a>
+                <button type="button" class="theme-toggle-page" id="theme-toggle-page" aria-label="Toggle theme" title="Toggle theme">☾</button>
+            </div>
+        </header>
+
+        <main class="auth-body">
+            <div class="auth-card">
+                <h1 class="auth-logo">CARTHEON</h1>
+                <p class="auth-sub" id="auth-sub">Account</p>
+
+                <!-- Tabs -->
+                <div class="auth-tabs" id="auth-tabs">
+                    <button type="button" class="auth-tab active" data-tab="signin">Sign in</button>
+                    <button type="button" class="auth-tab" data-tab="register">Create account</button>
+                </div>
+
+                <!-- Sign in -->
+                <form class="auth-form" id="form-signin" novalidate>
+                    <p class="auth-hint">Welcome back. Sign in to your CARTHEON account.</p>
+                    <label>Email
+                        <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">
+                    </label>
+                    <label>Password
+                        <input type="password" name="password" required autocomplete="current-password" placeholder="Your password">
+                    </label>
+                    <button type="submit" class="auth-submit">Sign in</button>
+                    <p class="auth-err" id="err-signin"></p>
+                </form>
+
+                <!-- Register -->
+                <form class="auth-form hidden" id="form-register" novalidate>
+                    <p class="auth-hint">Join the CARTHEON circle. Your password is hashed locally &mdash; never sent anywhere.</p>
+                    <label>First name
+                        <input type="text" name="name" required autocomplete="given-name" placeholder="Alexandru">
+                    </label>
+                    <label>Email
+                        <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">
+                    </label>
+                    <label>Password (min 6 characters)
+                        <input type="password" name="password" required minlength="6" autocomplete="new-password" placeholder="Strong password">
+                    </label>
+                    <button type="submit" class="auth-submit">Create account</button>
+                    <p class="auth-err" id="err-register"></p>
+                </form>
+
+                <!-- Signed-in view -->
+                <div class="auth-success hidden" id="view-signed-in">
+                    <h2>Welcome, <span id="signed-in-name">friend</span>.</h2>
+                    <p>You're signed in to your CARTHEON account.</p>
+                    <div class="auth-success-actions">
+                        <a href="index.html" class="auth-submit" style="text-decoration:none;display:block;text-align:center;">Continue shopping</a>
+                        <button type="button" class="auth-submit secondary" id="btn-signout">Sign out</button>
+                    </div>
+                </div>
+
+                <a href="index.html" class="auth-footer-link">← Back to store</a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+    (function () {
+        'use strict';
+
+        // ========== Storage keys (shared with auth-shared.js modal) ==========
+        const STORAGE_USER  = 'cartheon_user';
+        const STORAGE_USERS = 'cartheon_users';
+        const THEME_KEY     = 'cartheon_theme';
+
+        const $ = (s, ctx) => (ctx || document).querySelector(s);
+        const $$ = (s, ctx) => Array.from((ctx || document).querySelectorAll(s));
+
+        async function sha256Hex(str) {
+            const buf = new TextEncoder().encode(str);
+            const hash = await crypto.subtle.digest('SHA-256', buf);
+            return Array.from(new Uint8Array(hash))
+                .map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        function getUser() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_USER)); }
+            catch (e) { return null; }
+        }
+        function setUser(u) { localStorage.setItem(STORAGE_USER, JSON.stringify(u)); }
+        function clearUser() { localStorage.removeItem(STORAGE_USER); }
+
+        function getUsers() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_USERS)) || []; }
+            catch (e) { return []; }
+        }
+        function saveUsers(list) { localStorage.setItem(STORAGE_USERS, JSON.stringify(list)); }
+
+        function showTab(which) {
+            $$('.auth-tab').forEach(b => {
+                const active = b.dataset.tab === which;
+                b.classList.toggle('active', active);
+            });
+            $('#form-signin').classList.toggle('hidden', which !== 'signin');
+            $('#form-register').classList.toggle('hidden', which !== 'register');
+            $('#view-signed-in').classList.add('hidden');
+            $('#auth-sub').textContent = which === 'signin' ? 'Sign in' : 'Create account';
+            // Clear errors
+            $$('.auth-err').forEach(e => { e.textContent = ''; });
+        }
+
+        function showSignedIn(user) {
+            $('#form-signin').classList.add('hidden');
+            $('#form-register').classList.add('hidden');
+            const view = $('#view-signed-in');
+            view.classList.remove('hidden');
+            $('#signed-in-name').textContent = user.name || 'friend';
+            $('#auth-sub').textContent = 'Signed in';
+            // Hide tab switcher when signed in
+            $('#auth-tabs').style.display = 'none';
+        }
+
+        function showError(key, msg) {
+            const el = $('#err-' + key);
+            if (el) el.textContent = msg;
+        }
+
+        async function handleSignIn(e) {
+            e.preventDefault();
+            const form = e.target;
+            const email = (form.email.value || '').trim().toLowerCase();
+            const pass  = form.password.value || '';
+            showError('signin', '');
+            if (!email || !pass) return;
+            const submit = form.querySelector('button[type="submit"]');
+            submit.disabled = true;
+            try {
+                const users = getUsers();
+                const user = users.find(u => (u.email || '').toLowerCase() === email);
+                if (!user) {
+                    showError('signin', 'No account with that email. Try Create account.');
+                    return;
+                }
+                const h = await sha256Hex(pass + (user.salt || ''));
+                if (h !== user.hash) {
+                    showError('signin', 'Wrong password.');
+                    return;
+                }
+                const session = { name: user.name, email: user.email };
+                setUser(session);
+                // Redirect back if ?return= is set
+                const ret = new URL(location.href).searchParams.get('return');
+                if (ret && /^[a-z0-9_-]+\.html$/i.test(ret)) {
+                    location.href = ret;
+                    return;
+                }
+                showSignedIn(session);
+            } finally {
+                submit.disabled = false;
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const form = e.target;
+            const name  = (form.name.value || '').trim();
+            const email = (form.email.value || '').trim().toLowerCase();
+            const pass  = form.password.value || '';
+            showError('register', '');
+            if (!name || !email || !pass) return;
+            if (pass.length < 6) {
+                showError('register', 'Password must be at least 6 characters.');
+                return;
+            }
+            const submit = form.querySelector('button[type="submit"]');
+            submit.disabled = true;
+            try {
+                const users = getUsers();
+                if (users.some(u => (u.email || '').toLowerCase() === email)) {
+                    showError('register', 'An account with that email already exists. Sign in instead.');
+                    return;
+                }
+                const saltBytes = crypto.getRandomValues(new Uint8Array(16));
+                const salt = Array.from(saltBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+                const hash = await sha256Hex(pass + salt);
+                users.push({ name, email, salt, hash, createdAt: Date.now() });
+                saveUsers(users);
+                const session = { name, email };
+                setUser(session);
+                showSignedIn(session);
+            } finally {
+                submit.disabled = false;
+            }
+        }
+
+        // ========== Init ==========
+        // Tab clicks
+        $$('.auth-tab').forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
+        // Forms
+        $('#form-signin').addEventListener('submit', handleSignIn);
+        $('#form-register').addEventListener('submit', handleRegister);
+        // Sign out
+        $('#btn-signout').addEventListener('click', () => {
+            clearUser();
+            $('#auth-tabs').style.display = '';
+            showTab('signin');
+            $('#auth-sub').textContent = 'Sign in';
+        });
+
+        // Theme toggle on this page (the nav button isn't in a .nav-right here)
+        function currentTheme() { return document.documentElement.getAttribute('data-theme') || 'light'; }
+        function setTheme(t) {
+            document.documentElement.setAttribute('data-theme', t);
+            try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
+            const btn = $('#theme-toggle-page');
+            if (btn) btn.textContent = t === 'dark' ? '☀' : '☾';
+        }
+        // Sync button icon on load
+        setTheme(currentTheme());
+        $('#theme-toggle-page').addEventListener('click', () => {
+            setTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+        });
+
+        // If already signed in, show signed-in view straight away
+        const u = getUser();
+        if (u) showSignedIn(u);
+
+        // Deep link: /account.html?tab=register
+        const params = new URL(location.href).searchParams;
+        if (params.get('tab') === 'register' && !u) showTab('register');
+    })();
+    </script>
+</body>
+</html>

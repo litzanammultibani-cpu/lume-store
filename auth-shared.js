@@ -237,7 +237,12 @@
         triggers.forEach(a => {
             a.addEventListener('click', (e) => {
                 e.preventDefault();
-                openModal();
+                // Prefer the dedicated page. Pass ?return= so we come back here after signing in.
+                const here = location.pathname.split('/').pop() || 'index.html';
+                const onAccountPage = /account\.html$/i.test(here);
+                if (onAccountPage) return; // already there
+                const ret = /^[a-z0-9_-]+\.html$/i.test(here) ? here : 'index.html';
+                location.href = 'account.html?return=' + encodeURIComponent(ret);
             });
         });
     }
