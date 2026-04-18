@@ -504,31 +504,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         showLogin();
     }
-
-    // Cross-link between setup and login screens (user-requested: show both options)
-    const gotoLogin = document.getElementById('setup-goto-login');
-    if (gotoLogin) gotoLogin.addEventListener('click', (e) => {
-        e.preventDefault();
-        const us = getUsers();
-        if (us.length === 0) {
-            const err = document.getElementById('setup-error');
-            if (err) err.textContent = 'No admin account exists yet. Create one below.';
-            return;
-        }
-        showLogin();
-    });
-
-    const gotoSetup = document.getElementById('login-goto-setup');
-    if (gotoSetup) gotoSetup.addEventListener('click', (e) => {
-        e.preventDefault();
-        const us = getUsers();
-        if (us.length > 0) {
-            const err = document.getElementById('login-error');
-            if (err) err.textContent = 'Admin account already exists. Sign in, then use the Team tab to add another admin.';
-            return;
-        }
-        showSetup();
-    });
 });
 
 function hideAllScreens() {

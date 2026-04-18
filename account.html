@@ -280,6 +280,12 @@
                 <h1 class="auth-logo">CARTHEON</h1>
                 <p class="auth-sub" id="auth-sub">Account</p>
 
+                <!-- Tabs -->
+                <div class="auth-tabs" id="auth-tabs">
+                    <button type="button" class="auth-tab active" data-tab="signin">Sign in</button>
+                    <button type="button" class="auth-tab" data-tab="register">Create account</button>
+                </div>
+
                 <!-- Sign in -->
                 <form class="auth-form" id="form-signin" novalidate>
                     <p class="auth-hint">Welcome back. Sign in to your CARTHEON account.</p>
@@ -293,11 +299,21 @@
                     <p class="auth-err" id="err-signin"></p>
                 </form>
 
-                <!-- Invitation-only notice -->
-                <p class="auth-hint" style="margin-top:28px;border-top:1px solid #ece9e0;padding-top:22px;font-size:0.78rem;">
-                    Accounts at CARTHEON are <strong>by invitation only</strong>.<br>
-                    Contact <a href="mailto:hello@cartheon.store" style="color:inherit;border-bottom:1px solid currentColor;">hello@cartheon.store</a> for access.
-                </p>
+                <!-- Register -->
+                <form class="auth-form hidden" id="form-register" novalidate>
+                    <p class="auth-hint">Join the CARTHEON circle. Your password is hashed locally &mdash; never sent anywhere.</p>
+                    <label>First name
+                        <input type="text" name="name" required autocomplete="given-name" placeholder="Alexandru">
+                    </label>
+                    <label>Email
+                        <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">
+                    </label>
+                    <label>Password (min 6 characters)
+                        <input type="password" name="password" required minlength="6" autocomplete="new-password" placeholder="Strong password">
+                    </label>
+                    <button type="submit" class="auth-submit">Create account</button>
+                    <p class="auth-err" id="err-register"></p>
+                </form>
 
                 <!-- Signed-in view -->
                 <div class="auth-success hidden" id="view-signed-in">
@@ -346,12 +362,25 @@
         }
         function saveUsers(list) { localStorage.setItem(STORAGE_USERS, JSON.stringify(list)); }
 
+        function showTab(which) {
+            $$('.auth-tab').forEach(b => {
+                b.classList.toggle('active', b.dataset.tab === which);
+            });
+            $('#form-signin').classList.toggle('hidden', which !== 'signin');
+            $('#form-register').classList.toggle('hidden', which !== 'register');
+            $('#view-signed-in').classList.add('hidden');
+            $('#auth-sub').textContent = which === 'signin' ? 'Sign in' : 'Create account';
+            $$('.auth-err').forEach(e => { e.textContent = ''; });
+        }
+
         function showSignedIn(user) {
             $('#form-signin').classList.add('hidden');
+            $('#form-register').classList.add('hidden');
             const view = $('#view-signed-in');
             view.classList.remove('hidden');
             $('#signed-in-name').textContent = user.name || 'friend';
             $('#auth-sub').textContent = 'Signed in';
+            $('#auth-tabs').style.display = 'none';
         }
 
         function showError(key, msg) {
@@ -394,13 +423,47 @@
             }
         }
 
+        async function handleRegister(e) {
+            e.preventDefault();
+            const form = e.target;
+            const name  = (form.name.value || '').trim();
+            const email = (form.email.value || '').trim().toLowerCase();
+            const pass  = form.password.value || '';
+            showError('register', '');
+            if (!name || !email || !pass) return;
+            if (pass.length < 6) {
+                showError('register', 'Password must be at least 6 characters.');
+                return;
+            }
+            const submit = form.querySelector('button[type="submit"]');
+            submit.disabled = true;
+            try {
+                const users = getUsers();
+                if (users.some(u => (u.email || '').toLowerCase() === email)) {
+                    showError('register', 'An account with that email already exists. Sign in instead.');
+                    return;
+                }
+                const saltBytes = crypto.getRandomValues(new Uint8Array(16));
+                const salt = Array.from(saltBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+                const hash = await sha256Hex(pass + salt);
+                users.push({ name, email, salt, hash, createdAt: Date.now() });
+                saveUsers(users);
+                const session = { name, email };
+                setUser(session);
+                showSignedIn(session);
+            } finally {
+                submit.disabled = false;
+            }
+        }
+
         // ========== Init ==========
+        $$('.auth-tab').forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
         $('#form-signin').addEventListener('submit', handleSignIn);
+        $('#form-register').addEventListener('submit', handleRegister);
         $('#btn-signout').addEventListener('click', () => {
             clearUser();
-            $('#form-signin').classList.remove('hidden');
-            $('#view-signed-in').classList.add('hidden');
-            $('#auth-sub').textContent = 'Sign in';
+            $('#auth-tabs').style.display = '';
+            showTab('signin');
         });
 
         // Theme toggle on this page (the nav button isn't in a .nav-right here)
@@ -420,6 +483,10 @@
         // If already signed in, show signed-in view straight away
         const u = getUser();
         if (u) showSignedIn(u);
+
+        // Deep link: /account.html?tab=register
+        const params = new URL(location.href).searchParams;
+        if (params.get('tab') === 'register' && !u) showTab('register');
     })();
     </script>
 </body>
