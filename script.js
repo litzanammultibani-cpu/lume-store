@@ -1,5 +1,5 @@
 /* =========================================================
-   CARTHEON — Interactive storefront
+   VAIYN — Interactive storefront
    ========================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,12 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
     /* =========================================================
        APPLY ADMIN PRODUCT OVERRIDES (from localStorage)
        The admin panel can customize/add products. Any product
-       saved in `cartheon_products` overrides or extends the static
+       saved in `vaiyn_products` overrides or extends the static
        DOM product cards before anything else reads them.
        ========================================================= */
     (function applyAdminProducts() {
         let stored;
-        try { stored = JSON.parse(localStorage.getItem('cartheon_products')); }
+        try { stored = JSON.parse(localStorage.getItem('vaiyn_products')); }
         catch { stored = null; }
         if (!Array.isArray(stored)) return;
 
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = signinForm.querySelector('input[type="email"]').value;
         const name  = email.split('@')[0];
         const user  = { name, email, createdAt: Date.now() };
-        localStorage.setItem('cartheon_user', JSON.stringify(user));
+        localStorage.setItem('vaiyn_user', JSON.stringify(user));
         addCustomerRecord(user);
         showSuccess(name);
     });
@@ -278,17 +278,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstName = registerForm.querySelector('input[type="text"]').value;
         const email     = registerForm.querySelector('input[type="email"]').value;
         const user      = { name: firstName, email, createdAt: Date.now() };
-        localStorage.setItem('cartheon_user', JSON.stringify(user));
+        localStorage.setItem('vaiyn_user', JSON.stringify(user));
         addCustomerRecord(user);
         showSuccess(firstName);
     });
 
     function addCustomerRecord(user) {
         let list = [];
-        try { list = JSON.parse(localStorage.getItem('cartheon_users')) || []; } catch {}
+        try { list = JSON.parse(localStorage.getItem('vaiyn_users')) || []; } catch {}
         if (!list.some(u => u.email === user.email)) {
             list.push(user);
-            localStorage.setItem('cartheon_users', JSON.stringify(list));
+            localStorage.setItem('vaiyn_users', JSON.stringify(list));
         }
     }
     $('#forgot-link').addEventListener('click', e => {
@@ -318,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     function getStoredUser() {
-        try { return JSON.parse(localStorage.getItem('cartheon_user')); }
+        try { return JSON.parse(localStorage.getItem('vaiyn_user')); }
         catch { return null; }
     }
     function updateAccountBadge() {
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bagCountEl   = $('#bag-count');
     const checkoutBtn  = $('#checkout-btn');
 
-    const CART_KEY = 'cartheon_cart';
+    const CART_KEY = 'vaiyn_cart';
     let cart = loadCart();
 
     function loadCart() {
@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ============ Clickable product cards + wishlist heart ============ */
     // Inject a heart button into every product card (not in the admin's rendering loop).
     function injectProductHearts() {
-        const CP = window.CartheonProducts;
+        const CP = window.VaiynProducts;
         if (!CP) return;
         $$('.product-card').forEach(card => {
             if (card.querySelector('.product-heart')) return;
@@ -438,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ============ Recently Viewed on home ============ */
     (function renderRecentlyViewed() {
-        const CP = window.CartheonProducts;
+        const CP = window.VaiynProducts;
         if (!CP) return;
         const host = document.getElementById('recently-viewed-grid');
         if (!host) return;
@@ -668,19 +668,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const storageBanner = $('#storage-banner');
     function storageOk() {
         try {
-            const k = '__cartheon_storage_check__';
+            const k = '__vaiyn_storage_check__';
             localStorage.setItem(k, '1');
             localStorage.removeItem(k);
             return true;
         } catch { return false; }
     }
-    if (storageBanner && !storageOk() && !sessionStorage.getItem('cartheon_storage_dismissed')) {
+    if (storageBanner && !storageOk() && !sessionStorage.getItem('vaiyn_storage_dismissed')) {
         storageBanner.hidden = false;
         const closeBtn = storageBanner.querySelector('.storage-banner-close');
         if (closeBtn) {
             closeBtn.addEventListener('click', () => {
                 storageBanner.hidden = true;
-                try { sessionStorage.setItem('cartheon_storage_dismissed', '1'); } catch {}
+                try { sessionStorage.setItem('vaiyn_storage_dismissed', '1'); } catch {}
             });
         }
     }
@@ -700,18 +700,18 @@ document.addEventListener('DOMContentLoaded', () => {
             // Persist for admin panel visibility
             try {
                 let list = [];
-                try { list = JSON.parse(localStorage.getItem('cartheon_newsletter')) || []; } catch {}
+                try { list = JSON.parse(localStorage.getItem('vaiyn_newsletter')) || []; } catch {}
                 if (!list.some(x => (x.email || x) === email)) {
                     list.push({ email, joinedAt: Date.now() });
-                    localStorage.setItem('cartheon_newsletter', JSON.stringify(list));
+                    localStorage.setItem('vaiyn_newsletter', JSON.stringify(list));
                 }
             } catch {}
 
             newsletterMsg.innerHTML = `
-                <p class="confirm-heading">Welcome to the CARTHEON circle.</p>
+                <p class="confirm-heading">Welcome to the VAIYN circle.</p>
                 <p class="confirm-body">We'll reach <strong>${escapeHtml(email)}</strong> first when new pieces drop.<br>
                 Use this code for 10% off your first order:</p>
-                <span class="confirm-code" title="Click to copy">CARTHEON10</span>
+                <span class="confirm-code" title="Click to copy">VAIYN10</span>
             `;
             newsletterMsg.classList.add('is-visible');
             input.value = '';
@@ -721,7 +721,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (codeEl) {
                 codeEl.addEventListener('click', async () => {
                     try {
-                        await navigator.clipboard.writeText('CARTHEON10');
+                        await navigator.clipboard.writeText('VAIYN10');
                         const original = codeEl.textContent;
                         codeEl.textContent = 'COPIED ✓';
                         setTimeout(() => { codeEl.textContent = original; }, 1500);

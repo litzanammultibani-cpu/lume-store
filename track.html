@@ -3,31 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CARTHEON — Track your order</title>
+    <title>VAIYN — Track your order</title>
 
     <!-- Primary meta -->
-    <meta name="description" content="Track your CARTHEON order — enter your order number and email to see status, tracking details, and delivery updates for your sterling silver piece.">
-    <meta name="keywords" content="CARTHEON order tracking, track my silver bracelet, jewelry delivery, CARTHEON shipment status">
+    <meta name="description" content="Track your VAIYN order — enter your order number and email to see status, tracking details, and delivery updates for your sterling silver piece.">
+    <meta name="keywords" content="VAIYN order tracking, track my silver bracelet, jewelry delivery, VAIYN shipment status">
     <meta name="robots" content="noindex, follow">
     <meta name="theme-color" content="#0a0a0a">
-    <link rel="canonical" href="https://cartheon.store/track.html">
+    <link rel="canonical" href="https://vaiyn.com/track.html">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="CARTHEON">
+    <meta property="og:site_name" content="VAIYN">
     <meta property="og:locale" content="en_US">
-    <meta property="og:url" content="https://cartheon.store/track.html">
-    <meta property="og:title" content="CARTHEON — Track your order">
-    <meta property="og:description" content="Track your CARTHEON order in real time — status, carrier, and delivery updates, all in one place.">
-    <meta property="og:image" content="https://cartheon.store/og-image.svg">
+    <meta property="og:url" content="https://vaiyn.com/track.html">
+    <meta property="og:title" content="VAIYN — Track your order">
+    <meta property="og:description" content="Track your VAIYN order in real time — status, carrier, and delivery updates, all in one place.">
+    <meta property="og:image" content="https://vaiyn.com/og-image.svg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="CARTHEON — Track your order">
-    <meta name="twitter:description" content="Enter your order number and email to see tracking details for your CARTHEON piece.">
-    <meta name="twitter:image" content="https://cartheon.store/og-image.svg">
+    <meta name="twitter:title" content="VAIYN — Track your order">
+    <meta name="twitter:description" content="Enter your order number and email to see tracking details for your VAIYN piece.">
+    <meta name="twitter:image" content="https://vaiyn.com/og-image.svg">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -276,7 +276,7 @@
             .track-result-header h2 { font-size: 24px; }
         }
     </style>
-    <script id="theme-early-apply">(function(){try{var t=localStorage.getItem("cartheon_theme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+    <script id="theme-early-apply">(function(){try{var t=localStorage.getItem("vaiyn_theme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 </head>
 <body>
     <!-- Skip link -->
@@ -294,7 +294,7 @@
                 <a href="index.html#about">ABOUT</a>
             </div>
             <div class="nav-logo">
-                <a href="index.html" aria-label="CARTHEON home"><img src="logo.svg" alt="CARTHEON" height="32"></a>
+                <a href="index.html" aria-label="VAIYN home"><img src="logo.svg" alt="VAIYN" height="32"></a>
             </div>
             <div class="nav-right">
                 <a href="wishlist.html" aria-label="Wishlist">WISHLIST <span data-wishlist-count style="display:none;font-variant-numeric:tabular-nums;"></span></a>
@@ -377,11 +377,11 @@
                     </div>
                     <div>
                         <dt>Delivered</dt>
-                        <dd>Your CARTHEON piece has arrived. Enjoy it — and email hello@cartheon.store if anything's not perfect.</dd>
+                        <dd>Your VAIYN piece has arrived. Enjoy it — and email hello@vaiyn.com if anything's not perfect.</dd>
                     </div>
                     <div>
                         <dt>Cancelled</dt>
-                        <dd>The order was cancelled. If this was in error, contact us at hello@cartheon.store.</dd>
+                        <dd>The order was cancelled. If this was in error, contact us at hello@vaiyn.com.</dd>
                     </div>
                 </dl>
             </div>
@@ -405,10 +405,10 @@
             <span class="sep">·</span>
             <a href="contact.html">Contact</a>
             <span class="sep">·</span>
-            <button type="button" class="footer-manage-cookies" onclick="window.cartheonCookieOpen && window.cartheonCookieOpen()">Manage cookies</button>
+            <button type="button" class="footer-manage-cookies" onclick="window.vaiynCookieOpen && window.vaiynCookieOpen()">Manage cookies</button>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 CARTHEON · The art of timeless silver.</p>
+            <p>© 2026 VAIYN · The art of timeless silver.</p>
         </div>
     </footer>
 
@@ -510,7 +510,7 @@
                 }
 
                 let orders = [];
-                try { orders = JSON.parse(localStorage.getItem('cartheon_orders')) || []; } catch (err) { orders = []; }
+                try { orders = JSON.parse(localStorage.getItem('vaiyn_orders')) || []; } catch (err) { orders = []; }
 
                 const order = orders.find(o => o && o.number === number);
                 if (!order) {

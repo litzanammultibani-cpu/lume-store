@@ -1,4 +1,4 @@
-# CARTHEON — Fulfilment Runbook
+# VAIYN — Fulfilment Runbook
 
 The day-by-day workflow for turning a placed order into a delivered piece.
 
@@ -48,11 +48,11 @@ Pull each piece from inventory and double-check SKU against the order line. **SK
 
 ## 3. Pack
 
-Every CARTHEON order ships **gift-ready**. Standard pack for a single piece:
+Every VAIYN order ships **gift-ready**. Standard pack for a single piece:
 
 1. Inspect the piece under good light — no tarnish, no scratches, clasp opens/closes cleanly
 2. Polish with cloth if needed (5–10 s pass)
-3. Place piece in **CARTHEON pouch** — logo facing up, drawstring tied
+3. Place piece in **VAIYN pouch** — logo facing up, drawstring tied
 4. Add **polishing cloth** (branded, one per pouch)
 5. Add **care card** (sterling silver care instructions + 14-day return reminder)
 6. Add **handwritten thank-you note** if it's an engraved order, a gift, or the customer's first order
@@ -66,7 +66,7 @@ Every CARTHEON order ships **gift-ready**. Standard pack for a single piece:
 
 ### Sealing
 - Box closed with kraft tape
-- Gold foil CARTHEON sticker on the seam (do not skip — this is the brand moment)
+- Gold foil VAIYN sticker on the seam (do not skip — this is the brand moment)
 
 ---
 
@@ -94,7 +94,7 @@ Every CARTHEON order ships **gift-ready**. Standard pack for a single piece:
 ### Labels
 1. Log into La Poste Pro / DHL MyBill with order details
 2. Copy the shipping address exactly as entered — do not "correct" it
-3. Sender: `CARTHEON, [your address], 67000 Strasbourg, France`
+3. Sender: `VAIYN, [your address], 67000 Strasbourg, France`
 4. Print label, affix to the sealed box
 5. Photograph the labelled box before drop-off (proof of condition)
 

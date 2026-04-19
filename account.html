@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CARTHEON — Account</title>
-    <meta name="description" content="Sign in to your CARTHEON account, or create one in seconds.">
+    <title>VAIYN — Account</title>
+    <meta name="description" content="Sign in to your VAIYN account, or create one in seconds.">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <!-- Apply saved theme as early as possible -->
-    <script id="theme-early-apply">(function(){try{var t=localStorage.getItem("cartheon_theme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+    <script id="theme-early-apply">(function(){try{var t=localStorage.getItem("vaiyn_theme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
     <style>
         html, body { background: var(--auth-bg, #f4f1ea); }
         html[data-theme="dark"] { --auth-bg: #0a0a0a; }
@@ -268,7 +268,7 @@
     <div class="auth-shell">
         <!-- Minimal topbar -->
         <header class="auth-topbar">
-            <a href="index.html" aria-label="Home" class="topbar-brand">CARTHEON</a>
+            <a href="index.html" aria-label="Home" class="topbar-brand">VAIYN</a>
             <div style="display:flex;gap:14px;align-items:center;">
                 <a href="index.html">← Back to store</a>
                 <button type="button" class="theme-toggle-page" id="theme-toggle-page" aria-label="Toggle theme" title="Toggle theme">☾</button>
@@ -277,7 +277,7 @@
 
         <main class="auth-body">
             <div class="auth-card">
-                <h1 class="auth-logo">CARTHEON</h1>
+                <h1 class="auth-logo">VAIYN</h1>
                 <p class="auth-sub" id="auth-sub">Account</p>
 
                 <!-- Tabs -->
@@ -288,7 +288,7 @@
 
                 <!-- Sign in -->
                 <form class="auth-form" id="form-signin" novalidate>
-                    <p class="auth-hint">Welcome back. Sign in to your CARTHEON account.</p>
+                    <p class="auth-hint">Welcome back. Sign in to your VAIYN account.</p>
                     <label>Email
                         <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">
                     </label>
@@ -301,7 +301,7 @@
 
                 <!-- Register -->
                 <form class="auth-form hidden" id="form-register" novalidate>
-                    <p class="auth-hint">Join the CARTHEON circle. Your password is hashed locally &mdash; never sent anywhere.</p>
+                    <p class="auth-hint">Join the VAIYN circle. Your password is hashed locally &mdash; never sent anywhere.</p>
                     <label>First name
                         <input type="text" name="name" required autocomplete="given-name" placeholder="Alexandru">
                     </label>
@@ -318,7 +318,7 @@
                 <!-- Signed-in view -->
                 <div class="auth-success hidden" id="view-signed-in">
                     <h2>Welcome, <span id="signed-in-name">friend</span>.</h2>
-                    <p>You're signed in to your CARTHEON account.</p>
+                    <p>You're signed in to your VAIYN account.</p>
                     <div class="auth-success-actions">
                         <a href="index.html" class="auth-submit" style="text-decoration:none;display:block;text-align:center;">Continue shopping</a>
                         <button type="button" class="auth-submit secondary" id="btn-signout">Sign out</button>
@@ -335,9 +335,9 @@
         'use strict';
 
         // ========== Storage keys (shared with auth-shared.js modal) ==========
-        const STORAGE_USER  = 'cartheon_user';
-        const STORAGE_USERS = 'cartheon_users';
-        const THEME_KEY     = 'cartheon_theme';
+        const STORAGE_USER  = 'vaiyn_user';
+        const STORAGE_USERS = 'vaiyn_users';
+        const THEME_KEY     = 'vaiyn_theme';
 
         const $ = (s, ctx) => (ctx || document).querySelector(s);
         const $$ = (s, ctx) => Array.from((ctx || document).querySelectorAll(s));

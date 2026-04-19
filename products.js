@@ -1,14 +1,14 @@
 /* ============================================================
-   CARTHEON — Shared product catalog + wishlist + recently-viewed
+   VAIYN — Shared product catalog + wishlist + recently-viewed
    ----------------------------------------------------------------
    Provides a merged catalog (hardcoded defaults ∪ admin overrides
-   from localStorage `cartheon_products`), wishlist helpers backed
-   by `cartheon_wishlist`, and recently-viewed helpers backed by
-   sessionStorage `cartheon_recent`.
+   from localStorage `vaiyn_products`), wishlist helpers backed
+   by `vaiyn_wishlist`, and recently-viewed helpers backed by
+   sessionStorage `vaiyn_recent`.
    ============================================================ */
 (function () {
     'use strict';
-    if (window.CartheonProducts) return;
+    if (window.VaiynProducts) return;
 
     // Default catalog — mirrors index.html static cards
     // `collection` tags group pieces into the three named collections on the homepage:
@@ -36,7 +36,7 @@
             id: 'aurora-bangle', name: 'Aurora Bangle', price: 28.00,
             category: 'Polished Silver', symbol: '○', badge: 'BESTSELLER',
             collection: 'essential',
-            description: 'Mirror-polished bangle with a seamless closure. Slim, round, and a CARTHEON bestseller.',
+            description: 'Mirror-polished bangle with a seamless closure. Slim, round, and a VAIYN bestseller.',
             details: { material: '925 Sterling Silver', diameter: '62 mm', weight: '6.7 g', finish: 'High polish' },
             gradient: 'linear-gradient(135deg, #f0f0f0 0%, #c4c4c4 100%)'
         },
@@ -82,9 +82,9 @@
         }
     ];
 
-    const K_PRODUCTS = 'cartheon_products';
-    const K_WISHLIST = 'cartheon_wishlist';
-    const K_RECENT   = 'cartheon_recent';
+    const K_PRODUCTS = 'vaiyn_products';
+    const K_WISHLIST = 'vaiyn_wishlist';
+    const K_RECENT   = 'vaiyn_recent';
 
     function loadLS(key, fallback) {
         try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
@@ -191,7 +191,7 @@
     }
 
     // ======= PUBLIC API =======
-    window.CartheonProducts = {
+    window.VaiynProducts = {
         getCatalog, getProduct, getRelated,
         getWishlist, isWishlisted, addToWishlist, removeFromWishlist,
         toggleWishlist, wishlistCount,

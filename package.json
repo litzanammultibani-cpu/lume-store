@@ -1,7 +1,7 @@
 {
-  "name": "cartheon-store",
+  "name": "vaiyn-store",
   "version": "1.0.0",
-  "description": "CARTHEON - Fine sterling silver jewelry. The art of timelessness.",
+  "description": "VAIYN - Fine sterling silver jewelry. The art of timelessness.",
   "main": "index.html",
   "scripts": {
     "start": "npx serve -s . -l 8080",
@@ -12,14 +12,14 @@
     "jewelry",
     "silver",
     "ecommerce",
-    "cartheon",
+    "vaiyn",
     "static-site"
   ],
   "author": "litza",
   "license": "MIT",
-  "homepage": "https://github.com/litza/cartheon-store#readme",
+  "homepage": "https://github.com/litza/vaiyn-store#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/litza/cartheon-store.git"
+    "url": "https://github.com/litza/vaiyn-store.git"
   }
 }

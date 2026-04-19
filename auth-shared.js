@@ -1,5 +1,5 @@
 /* ============================================================
-   CARTHEON — Customer auth (shared)
+   VAIYN — Customer auth (shared)
    Injects the login/register modal on any page that doesn't have
    one, and wires all ACCOUNT nav links to open it. Uses the same
    modal markup as index.html so scripts on index are untouched.
@@ -10,11 +10,11 @@
    ============================================================ */
 (function () {
     'use strict';
-    if (window.__cartheonAuthSharedLoaded) return;
-    window.__cartheonAuthSharedLoaded = true;
+    if (window.__vaiynAuthSharedLoaded) return;
+    window.__vaiynAuthSharedLoaded = true;
 
-    const STORAGE_USER  = 'cartheon_user';
-    const STORAGE_USERS = 'cartheon_users';
+    const STORAGE_USER  = 'vaiyn_user';
+    const STORAGE_USERS = 'vaiyn_users';
 
     function $(sel, ctx) { return (ctx || document).querySelector(sel); }
     function $$(sel, ctx) { return Array.from((ctx || document).querySelectorAll(sel)); }
@@ -52,7 +52,7 @@
         </div>
         <form class="account-form" id="signin-form" data-form="signin">
             <h2 id="account-title">Welcome back</h2>
-            <p class="form-sub">Sign in to your CARTHEON account.</p>
+            <p class="form-sub">Sign in to your VAIYN account.</p>
             <label>Email<input type="email" required placeholder="you@example.com" autocomplete="email"></label>
             <label>Password<input type="password" required placeholder="••••••••" autocomplete="current-password"></label>
             <button type="submit" class="form-submit">SIGN IN</button>
@@ -60,7 +60,7 @@
         </form>
         <form class="account-form hidden" id="register-form" data-form="register">
             <h2>Create an account</h2>
-            <p class="form-sub">Join the CARTHEON circle.</p>
+            <p class="form-sub">Join the VAIYN circle.</p>
             <label>First name<input type="text" required placeholder="Alexandru" autocomplete="given-name"></label>
             <label>Email<input type="email" required placeholder="you@example.com" autocomplete="email"></label>
             <label>Password<input type="password" required minlength="6" placeholder="at least 6 characters" autocomplete="new-password"></label>
@@ -259,7 +259,7 @@
         }
 
         // Expose API
-        window.CartheonAuth = {
+        window.VaiynAuth = {
             open: openModal,
             close: closeModal,
             getUser: getStoredUser,

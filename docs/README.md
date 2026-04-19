@@ -1,6 +1,6 @@
-# CARTHEON — Documentation
+# VAIYN — Documentation
 
-Start here. Everything you need to understand, run, launch, and grow CARTHEON lives in this folder.
+Start here. Everything you need to understand, run, launch, and grow VAIYN lives in this folder.
 
 ---
 

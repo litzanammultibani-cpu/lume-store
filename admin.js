@@ -1,5 +1,5 @@
 /* =========================================================
-   CARTHEON — Admin Panel
+   VAIYN — Admin Panel
    Security:
      - PBKDF2-SHA256 (200,000 iterations) password hashing
      - 16-byte random salt per credential
@@ -16,13 +16,13 @@
    ========================================================= */
 
 const LS = {
-    AUTH:         'cartheon_admin_auth_v1',   // { username, email, salt, hash, iterations, createdAt }
-    LOCKOUT:      'cartheon_admin_lockout',   // { count, until }
-    RECOVERY:     'cartheon_admin_recovery',  // { codeHash, salt, expires, attempts }
-    ORDERS:       'cartheon_orders',
-    USERS:        'cartheon_users',           // customer list
-    PRODUCTS:     'cartheon_products',
-    PENDING:      'cartheon_admin_pending_actions', // dual-control / 4-eyes queue
+    AUTH:         'vaiyn_admin_auth_v1',   // { username, email, salt, hash, iterations, createdAt }
+    LOCKOUT:      'vaiyn_admin_lockout',   // { count, until }
+    RECOVERY:     'vaiyn_admin_recovery',  // { codeHash, salt, expires, attempts }
+    ORDERS:       'vaiyn_orders',
+    USERS:        'vaiyn_users',           // customer list
+    PRODUCTS:     'vaiyn_products',
+    PENDING:      'vaiyn_admin_pending_actions', // dual-control / 4-eyes queue
 };
 
 /* ---------- Dual-control (4-eyes) constants ---------- */
@@ -36,7 +36,7 @@ const PENDING_ADMIN_ACTIONS = new Set([
 ]);
 
 const SS = {
-    SESSION:      'cartheon_admin_session',   // { token, user, expires }
+    SESSION:      'vaiyn_admin_session',   // { token, user, expires }
 };
 
 const PBKDF2_ITERATIONS = 200000;
@@ -720,7 +720,7 @@ async function sendRecoveryEmail(email, username, code) {
             to_name:  username,
             to_email: email,
             code:     code,
-            subject:  'Your CARTHEON recovery code'
+            subject:  'Your VAIYN recovery code'
         });
         return true;
     } catch (err) {
@@ -851,7 +851,7 @@ function showAdmin() {
     $('#clear-customers-btn').addEventListener('click', () => {
         if (!confirm('Delete ALL customer records?')) return;
         localStorage.removeItem(LS.USERS);
-        localStorage.removeItem('cartheon_user');
+        localStorage.removeItem('vaiyn_user');
         renderDashboard(); renderCustomers();
     });
     $('#reset-products-btn').addEventListener('click', () => {
@@ -1214,7 +1214,7 @@ function saveOrderUpdate(number) {
    ========================================================= */
 function collectAllUsers() {
     const list = lsGet(LS.USERS, []);
-    const legacy = lsGet('cartheon_user');
+    const legacy = lsGet('vaiyn_user');
     if (legacy && !list.some(u => u.email === legacy.email)) {
         list.push({ ...legacy, createdAt: Date.now() });
         lsSet(LS.USERS, list);
@@ -1899,7 +1899,7 @@ function exportData() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `cartheon-backup-${Date.now()}.json`;
+    a.download = `vaiyn-backup-${Date.now()}.json`;
     document.body.appendChild(a); a.click(); a.remove();
     URL.revokeObjectURL(url);
 }
@@ -1925,17 +1925,17 @@ function formatDate(ts) {
 
 /* =========================================================
    CUSTOMER CREATION (admin-only)
-   Adds a customer login to cartheon_users using the same format
+   Adds a customer login to vaiyn_users using the same format
    as auth-shared.js and account.html (SHA-256 + per-user salt).
    ========================================================= */
-async function __cartheon_sha256Hex(str) {
+async function __vaiyn_sha256Hex(str) {
     const buf = new TextEncoder().encode(str);
     const hash = await crypto.subtle.digest('SHA-256', buf);
     return Array.from(new Uint8Array(hash))
         .map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-function __cartheon_randomPassword(len) {
+function __vaiyn_randomPassword(len) {
     const chars = 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     const out = new Uint8Array(len || 12);
     crypto.getRandomValues(out);
@@ -1982,7 +1982,7 @@ function openCustomerCreateModal() {
     modal.addEventListener('click', e => { if (e.target === modal) close(); });
     modal.querySelector('#cust-create-cancel').addEventListener('click', close);
     modal.querySelector('#cust-gen-pass').addEventListener('click', () => {
-        modal.querySelector('#cust-create-pass').value = __cartheon_randomPassword(12);
+        modal.querySelector('#cust-create-pass').value = __vaiyn_randomPassword(12);
     });
 
     modal.querySelector('#cust-create-form').addEventListener('submit', async (e) => {
@@ -1996,7 +1996,7 @@ function openCustomerCreateModal() {
         if (!name || !email || !pass) { err.textContent = 'All fields are required.'; return; }
         if (pass.length < 6)           { err.textContent = 'Password must be at least 6 characters.'; return; }
         if (!/.+@.+\..+/.test(email))  { err.textContent = 'Please enter a valid email.'; return; }
-        const list = JSON.parse(localStorage.getItem('cartheon_users') || '[]');
+        const list = JSON.parse(localStorage.getItem('vaiyn_users') || '[]');
         if (list.some(u => (u.email || '').toLowerCase() === email)) {
             err.textContent = 'A customer with that email already exists.';
             return;
@@ -2009,13 +2009,13 @@ function openCustomerCreateModal() {
         try {
             const saltBytes = crypto.getRandomValues(new Uint8Array(16));
             const salt = Array.from(saltBytes).map(b => b.toString(16).padStart(2, '0')).join('');
-            const hash = await __cartheon_sha256Hex(pass + salt);
+            const hash = await __vaiyn_sha256Hex(pass + salt);
             list.push({
                 name, email, salt, hash,
                 createdAt: Date.now(),
                 createdByAdmin: true
             });
-            localStorage.setItem('cartheon_users', JSON.stringify(list));
+            localStorage.setItem('vaiyn_users', JSON.stringify(list));
 
             // Success: show credentials summary so admin can copy & share
             modal.querySelector('.fin-modal-card').innerHTML = `

@@ -1,11 +1,11 @@
 /* ============================================================
-   CARTHEON — Admin Finances module
-   Self-contained. Reads orders from localStorage `cartheon_orders`
+   VAIYN — Admin Finances module
+   Self-contained. Reads orders from localStorage `vaiyn_orders`
    and products from DOM. All finance data lives under:
-     cartheon_finance_expenses   — array of expense records
-     cartheon_finance_costs      — { sku: { cost, updated } }
-     cartheon_finance_invoices   — { orderId: invoiceNumber }
-     cartheon_business_info      — business info object
+     vaiyn_finance_expenses   — array of expense records
+     vaiyn_finance_costs      — { sku: { cost, updated } }
+     vaiyn_finance_invoices   — { orderId: invoiceNumber }
+     vaiyn_business_info      — business info object
    Numbered invoices roll per calendar year (CA-2026-0001 …).
    ============================================================ */
 (function () {
@@ -13,12 +13,12 @@
 
     // ============ STORAGE ============
     const K = {
-        EXPENSES: 'cartheon_finance_expenses',
-        COSTS:    'cartheon_finance_costs',
-        INVOICES: 'cartheon_finance_invoices',
-        BUSINESS: 'cartheon_business_info',
-        ORDERS:   'cartheon_orders',
-        PRODUCTS: 'cartheon_products'
+        EXPENSES: 'vaiyn_finance_expenses',
+        COSTS:    'vaiyn_finance_costs',
+        INVOICES: 'vaiyn_finance_invoices',
+        BUSINESS: 'vaiyn_business_info',
+        ORDERS:   'vaiyn_orders',
+        PRODUCTS: 'vaiyn_products'
     };
 
     const EXPENSE_CATEGORIES = [
@@ -161,7 +161,7 @@
         const list = {};
         // Static DOM snapshot (works only if we're on admin page — we're not,
         // so parse the admin's cached products list, and also try fetching index).
-        // For simplicity: use cartheon_products if present; otherwise a fallback
+        // For simplicity: use vaiyn_products if present; otherwise a fallback
         // derived from the Orders table (all SKUs that have appeared).
         const stored = load(K.PRODUCTS, null);
         if (Array.isArray(stored)) {
@@ -452,7 +452,7 @@
             ]));
         downloadBlob(
             rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n'),
-            'cartheon-expenses-' + fmtDateISO(Date.now()) + '.csv',
+            'vaiyn-expenses-' + fmtDateISO(Date.now()) + '.csv',
             'text/csv;charset=utf-8'
         );
     }
@@ -589,7 +589,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>${esc((invoice && invoice.number) || 'DRAFT')} — ${esc(bi.name || 'CARTHEON')}</title>
+<title>${esc((invoice && invoice.number) || 'DRAFT')} — ${esc(bi.name || 'VAIYN')}</title>
 <style>
     body { font-family: 'Helvetica', 'Arial', sans-serif; color:#0a0a0a; margin: 0; padding: 40px 50px; background:#fff; font-size: 13px; }
     h1 { font-family: 'Cormorant Garamond', 'Didot', Georgia, serif; font-weight: 400; font-size: 28px; margin: 0 0 6px; letter-spacing: 0.08em; }
@@ -621,7 +621,7 @@
             <p class="muted">Date: ${esc(fmtDateLocal(order.createdAt))}</p>
         </div>
         <div class="brand">
-            <h1>${esc(bi.name || 'CARTHEON')}</h1>
+            <h1>${esc(bi.name || 'VAIYN')}</h1>
             <p class="muted">${esc(bi.address || '')}</p>
             ${bi.siren ? `<p class="muted">SIREN: ${esc(bi.siren)}</p>` : ''}
             ${bi.tvaNumber ? `<p class="muted">TVA: ${esc(bi.tvaNumber)}</p>` : ''}
@@ -763,7 +763,7 @@
         const revenue = orders.reduce((s, o) => s + (Number(o.total) || 0), 0);
         const bi = getBusiness();
         const blob = [
-            'CARTHEON — URSSAF declaration draft',
+            'VAIYN — URSSAF declaration draft',
             'Period: ' + qRange.label,
             'Company: ' + (bi.name || '—'),
             'SIREN: ' + (bi.siren || '—'),
@@ -892,7 +892,7 @@
         });
 
         // Expose for console debugging
-        window.__cartheonFinance = {
+        window.__vaiynFinance = {
             renderOverview, renderExpenses, renderCOGS, renderInvoices, renderLivre,
             syncInvoices, getBusiness, getExpenses, getCosts
         };

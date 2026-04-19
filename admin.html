@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
     <meta name="referrer" content="no-referrer">
-    <title>CARTHEON · Admin</title>
+    <title>VAIYN · Admin</title>
     <!-- Apply saved theme before paint to avoid FOUC -->
-    <script id="theme-early-apply">(function(){try{var t=localStorage.getItem("cartheon_theme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+    <script id="theme-early-apply">(function(){try{var t=localStorage.getItem("vaiyn_theme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
     <div class="login-screen hidden" id="setup-screen">
         <div class="login-card">
             <button type="button" class="admin-theme-toggle" aria-label="Toggle theme" title="Toggle theme">☾</button>
-            <div class="login-logo">CARTHEON</div>
+            <div class="login-logo">VAIYN</div>
             <p class="login-sub">Create Admin Account</p>
             <p class="login-hint" style="margin: 0 0 28px;">Set up your admin credentials. Your password is hashed with PBKDF2 (200,000 iterations) and stored locally — never sent anywhere. The email is used only for password recovery.</p>
             <form id="setup-form" class="login-form">
@@ -49,7 +49,7 @@
     <div class="login-screen hidden" id="login-screen">
         <div class="login-card">
             <button type="button" class="admin-theme-toggle" aria-label="Toggle theme" title="Toggle theme">☾</button>
-            <div class="login-logo">CARTHEON</div>
+            <div class="login-logo">VAIYN</div>
             <p class="login-sub">Admin Control Panel</p>
             <form id="login-form" class="login-form">
                 <label>Username
@@ -72,7 +72,7 @@
     <div class="login-screen hidden" id="recovery-request-screen">
         <div class="login-card">
             <button type="button" class="admin-theme-toggle" aria-label="Toggle theme" title="Toggle theme">☾</button>
-            <div class="login-logo">CARTHEON</div>
+            <div class="login-logo">VAIYN</div>
             <p class="login-sub">Password Recovery</p>
             <p class="login-hint" style="margin:0 0 24px;">Enter the email you used at setup. We'll send a 6-digit verification code.</p>
             <form id="recovery-request-form" class="login-form">
@@ -92,7 +92,7 @@
     <div class="login-screen hidden" id="recovery-verify-screen">
         <div class="login-card">
             <button type="button" class="admin-theme-toggle" aria-label="Toggle theme" title="Toggle theme">☾</button>
-            <div class="login-logo">CARTHEON</div>
+            <div class="login-logo">VAIYN</div>
             <p class="login-sub">Reset Password</p>
             <p class="login-hint" id="recovery-sent-info" style="margin:0 0 24px;">Check your inbox. The code expires in 15 minutes.</p>
             <form id="recovery-verify-form" class="login-form">
@@ -120,7 +120,7 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
-                <span class="brand-mark">CARTHEON</span>
+                <span class="brand-mark">VAIYN</span>
                 <span class="brand-tag">Admin</span>
             </div>
             <nav class="sidebar-nav">
@@ -166,7 +166,7 @@
             <section class="view active" data-view="dashboard">
                 <div class="view-header">
                     <h1>Dashboard</h1>
-                    <p>Welcome back. Here's what's happening at CARTHEON today.</p>
+                    <p>Welcome back. Here's what's happening at VAIYN today.</p>
                 </div>
 
                 <div class="stats-grid">
@@ -440,7 +440,7 @@
                     <form id="fin-business-form" class="fin-form">
                         <div class="fin-form-grid">
                             <label>Company name
-                                <input type="text" id="bi-name" placeholder="CARTHEON">
+                                <input type="text" id="bi-name" placeholder="VAIYN">
                             </label>
                             <label>Legal form
                                 <select id="bi-form">
@@ -524,7 +524,7 @@
                 <div class="view-header">
                     <div>
                         <h1>Team</h1>
-                        <p>Invite admins, managers, store managers, and employees to run CARTHEON together.</p>
+                        <p>Invite admins, managers, store managers, and employees to run VAIYN together.</p>
                     </div>
                     <button type="button" class="btn-primary" id="add-team-btn">+ ADD TEAM MEMBER</button>
                 </div>
@@ -595,7 +595,7 @@
 
                     <div class="settings-card">
                         <h3>About</h3>
-                        <p class="settings-hint">CARTHEON Admin v1.0 — built for local testing. When you deploy to Shopify or a real backend, this panel will be replaced by their admin.</p>
+                        <p class="settings-hint">VAIYN Admin v1.0 — built for local testing. When you deploy to Shopify or a real backend, this panel will be replaced by their admin.</p>
                         <p class="settings-hint" style="margin-top:12px;">Founders: Litan Alexandru Răzvan · Cherif Sow</p>
                     </div>
                 </div>
@@ -690,9 +690,9 @@
     </div>
 
     <script>
-    /* Admin theme toggle — shares cartheon_theme key with storefront */
+    /* Admin theme toggle — shares vaiyn_theme key with storefront */
     (function(){
-        var KEY='cartheon_theme';
+        var KEY='vaiyn_theme';
         function current(){return document.documentElement.getAttribute('data-theme')||'light';}
         function set(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem(KEY,t);}catch(e){}paintBtns(t);}
         function paintBtns(t){

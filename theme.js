@@ -1,17 +1,17 @@
 /* ============================================================
-   CARTHEON — Dark/Light theme toggle
+   VAIYN — Dark/Light theme toggle
    - Adds a button into every .nav-right
-   - Persists preference in localStorage (cartheon_theme)
+   - Persists preference in localStorage (vaiyn_theme)
    - Falls back to prefers-color-scheme on first visit
    - Applies theme as early as possible via inline <script> in <head>
      (fallback: applied here on DOMContentLoaded — brief flash possible)
    ============================================================ */
 (function () {
     'use strict';
-    if (window.__cartheonThemeLoaded) return;
-    window.__cartheonThemeLoaded = true;
+    if (window.__vaiynThemeLoaded) return;
+    window.__vaiynThemeLoaded = true;
 
-    const KEY = 'cartheon_theme';
+    const KEY = 'vaiyn_theme';
 
     function getTheme() {
         const stored = localStorage.getItem(KEY);

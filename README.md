@@ -1,8 +1,8 @@
-# CARTHEON — Fine Silver Jewelry
+# VAIYN — Fine Silver Jewelry
 
 **The Art of Timelessness**
 
-CARTHEON is a fine sterling silver jewelry brand born in Strasbourg, France. Each piece is designed with intention — timeless silver jewelry made to last and meant to go everywhere with you.
+VAIYN is a fine sterling silver jewelry brand born in Strasbourg, France. Each piece is designed with intention — timeless silver jewelry made to last and meant to go everywhere with you.
 
 Founders: **Litan Alexandru Răzvan** & **Cherif Sow**.
 
@@ -79,4 +79,4 @@ MIT.
 
 ---
 
-*CARTHEON — Strasbourg, France.*
+*VAIYN — Strasbourg, France.*
